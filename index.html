@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3D Mark score calculator</title>
+  </head>
+
+  <body>
+    <main class="wrapper bg-transparent">
+      <div class="wrapper">
+        <div class="btn-container d-flex align-items-center justify-content-evenly">
+          <button class="d-flex" id="toggleSortScoreButton">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M418-340q24 24 62 23.5t56-27.5l224-336-336 224q-27 18-28.5 55t22.5 61Zm62-460q59 0 113.5 16.5T696-734l-76 48q-33-17-68.5-25.5T480-720q-133 0-226.5 93.5T160-400q0 42 11.5 83t32.5 77h552q23-38 33.5-79t10.5-85q0-36-8.5-70T766-540l48-76q30 47 47.5 100T880-406q1 57-13 109t-41 99q-11 18-30 28t-40 10H204q-21 0-40-10t-30-28q-26-45-40-95.5T80-400q0-83 31.5-155.5t86-127Q252-737 325-768.5T480-800Zm7 313Z" /></svg>
+          </button>
+          <button class="d-flex" id="toggleSortPriceButton">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M441-120v-86q-53-12-91.5-46T293-348l74-30q15 48 44.5 73t77.5 25q41 0 69.5-18.5T587-356q0-35-22-55.5T463-458q-86-27-118-64.5T313-614q0-65 42-101t86-41v-84h80v84q50 8 82.5 36.5T651-650l-74 32q-12-32-34-48t-60-16q-44 0-67 19.5T393-614q0 33 30 52t104 40q69 20 104.5 63.5T667-358q0 71-42 108t-104 46v84h-80Z" /></svg>
+          </button>
+          <!-- <button onClick="window.location.href=window.location.href">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-160q-134 0-227-93t-93-227q0-134 93-227t227-93q69 0 132 28.5T720-690v-110h80v280H520v-80h168q-32-56-87.5-88T480-720q-100 0-170 70t-70 170q0 100 70 170t170 70q77 0 139-44t87-116h84q-28 106-114 173t-196 67Z" /></svg>
+          </button> -->
+        </div>
+      </div>
+
+      <!-- gpu wrapper -->
+      <div class="GPU wrapper">
+        <div class="filter-container d-flex align-items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M400-240v-80h160v80H400ZM240-440v-80h480v80H240ZM120-640v-80h720v80H120Z" /></svg>
+          <div id="gpuManufacturerFilter" class="button-container">
+            <button value="" class="filter-button">All</button>
+            <button value="AMD" class="filter-button">AMD</button>
+            <button value="ASRock" class="filter-button">ASRock</button>
+            <button value="ASUS" class="filter-button">ASUS</button>
+            <button value="Colorful" class="filter-button">Colorful</button>
+            <button value="Corsair" class="filter-button">Corsair</button>
+            <button value="DFL" class="filter-button">DFL</button>
+            <button value="EVGA" class="filter-button">EVGA</button>
+            <button value="GIGABYTE" class="filter-button">GIGABYTE</button>
+            <button value="MSI" class="filter-button">MSI</button>
+            <button value="NVIDIA" class="filter-button">NVIDIA</button>
+            <button value="Shean" class="filter-button">Shean</button>
+            <button value="ZOTAC" class="filter-button">ZOTAC</button>
+          </div>
+        </div>
+
+        <div class="part-select-container d-flex align-items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" fill="currentColor" class="bi bi-gpu-card" viewBox="0 0 16 16"><path d="M4 8a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0m7.5-1.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M0 1.5A.5.5 0 0 1 .5 1h1a.5.5 0 0 1 .5.5V4h13.5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5H2v2.5a.5.5 0 0 1-1 0V2H.5a.5.5 0 0 1-.5-.5m5.5 4a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M9 8a2.5 2.5 0 1 0 5 0 2.5 2.5 0 0 0-5 0M3 12.5h3.5v1a.5.5 0 0 1-.5.5H3.5a.5.5 0 0 1-.5-.5zm4 1v-1h4v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5" /></svg>
+          <select id="gpuSelect">
+            <option value="0">select GPU...</option>
+            <optgroup label="Normal GPUs">
+              <option value="6339" data-price="580" data-cooling="aircooled" data-manufacturer="AMD">[6339] AMD Radeon RX Vega 56 | $580</option>
+              <option value="6923" data-price="660" data-cooling="aircooled" data-manufacturer="AMD">[6923] AMD Radeon RX Vega 64 | $660</option>
+              <option value="7893" data-price="750" data-cooling="aircooled" data-manufacturer="AMD">[7893] AMD Radeon RX 5700 | $750</option>
+              <option value="8728" data-price="830" data-cooling="aircooled" data-manufacturer="AMD">[8728] AMD Radeon RX 5700 XT | $830</option>
+              <option value="8588" data-price="840" data-cooling="aircooled" data-manufacturer="AMD">[8588] AMD Radeon VII | $840</option>
+              <option value="13092" data-price="1315" data-cooling="aircooled" data-manufacturer="AMD">[13092] AMD Radeon RX 6800 | $1,315</option>
+              <option value="16155" data-price="1575" data-cooling="aircooled" data-manufacturer="AMD">[16155] AMD Radeon RX 6800 XT | $1,575</option>
+              <option value="16954" data-price="1695" data-cooling="aircooled" data-manufacturer="AMD">[16954] AMD Radeon RX 6900 XT | $1,695</option>
+              <option value="1878" data-price="155" data-cooling="aircooled" data-manufacturer="ASRock">[1878] ASRock Phantom Gaming Radeon RX560 4G | $155</option>
+              <option value="4311" data-price="390" data-cooling="aircooled" data-manufacturer="ASRock">[4311] ASRock Phantom Gaming D Radeon RX580 8G OC | $390</option>
+              <option value="4331" data-price="395" data-cooling="aircooled" data-manufacturer="ASRock">[4331] ASRock Phantom Gaming X Radeon RX580 8G OC | $395</option>
+              <option value="4775" data-price="400" data-cooling="aircooled" data-manufacturer="ASRock">[4775] ASRock Phantom Gaming X Radeon RX590 8G OC | $400</option>
+              <option value="6343" data-price="605" data-cooling="aircooled" data-manufacturer="ASRock">[6343] ASRock Phantom Gaming X Radeon RX VEGA 56 8G | $605</option>
+              <option value="11694" data-price="920" data-cooling="aircooled" data-manufacturer="ASRock">[11694] ASRock Radeon RX 6700 XT Phantom Gaming D 12G OC | $920</option>
+              <option value="13804" data-price="1190" data-cooling="aircooled" data-manufacturer="ASRock">[13804] ASRock Radeon RX 6800 Phantom Gaming D 16G OC | $1,190</option>
+              <option value="16350" data-price="1470" data-cooling="aircooled" data-manufacturer="ASRock">[16350] ASRock Radeon RX 6800 XT Phantom Gaming D 16G OC | $1,470</option>
+              <option value="16525" data-price="1470" data-cooling="aircooled" data-manufacturer="ASRock">[16525] ASRock Radeon RX 6800 XT Taichi X 16G OC | $1,470</option>
+              <option value="17308" data-price="1540" data-cooling="aircooled" data-manufacturer="ASRock">[17308] ASRock Radeon RX 6900 XT Phantom Gaming D 16G OC | $1,540</option>
+              <option value="4018" data-price="350" data-cooling="aircooled" data-manufacturer="ASUS">[4018] ASUS ROG Strix GeForce GTX 1060 OC Edition | $350</option>
+              <option value="5749" data-price="550" data-cooling="aircooled" data-manufacturer="ASUS">[5749] ASUS ROG Strix GeForce GTX 1070 OC Edition | $550</option>
+              <option value="6380" data-price="610" data-cooling="aircooled" data-manufacturer="ASUS">[6380] ASUS ROG Strix GeForce GTX 1070 Ti Advanced Edition | $610</option>
+              <option value="7337" data-price="700" data-cooling="aircooled" data-manufacturer="ASUS">[7337] ASUS ROG Strix GeForce GTX 1080 OC Edition | $700</option>
+              <option value="8696" data-price="870" data-cooling="aircooled" data-manufacturer="ASUS">[8696] ASUS ROG Strix GeForce GTX 1080 Ti OC Edition | $870</option>
+              <option value="8334" data-price="750" data-cooling="aircooled" data-manufacturer="ASUS">[8334] ASUS ROG Strix GeForce RTX 2060 SUPER Series | $750</option>
+              <option value="9956" data-price="950" data-cooling="aircooled" data-manufacturer="ASUS">[9956] ASUS ROG Strix GeForce RTX 2070 SUPER Series | $950</option>
+              <option value="10672" data-price="1050" data-cooling="aircooled" data-manufacturer="ASUS">[10672] ASUS ROG Strix GeForce RTX 2080 SUPER Series | $1,050</option>
+              <option value="10801" data-price="1030" data-cooling="aircooled" data-manufacturer="ASUS">[10801] ASUS ROG Strix GeForce RTX 2080 Ti 11GB Gaming | $1,030</option>
+              <option value="12454" data-price="1185" data-cooling="aircooled" data-manufacturer="ASUS">[12454] ASUS GeForce RTX 3070 OC Edition 8GB GDDR6 | $1,185</option>
+              <option value="15158" data-price="1445" data-cooling="aircooled" data-manufacturer="ASUS">[15158] ASUS TUF Gaming GeForce RTX 3080 O10G | $1,445</option>
+              <option value="18679" data-price="1495" data-cooling="aircooled" data-manufacturer="ASUS">[18679] ASUS ROG Strix GeForce RTX 3090 O24G | $1,495</option>
+              <option value="6469" data-price="615" data-cooling="aircooled" data-manufacturer="ASUS">[6469] ASUS AREZ Strix Radeon RX Vega 56 OC Edition | $615</option>
+              <option value="6994" data-price="665" data-cooling="aircooled" data-manufacturer="ASUS">[6994] ASUS ROG Strix RX Vega64 OC Edition | $665</option>
+              <option value="1940" data-price="160" data-cooling="aircooled" data-manufacturer="ASUS">[1940] ASUS Radeon RX 560 | $160</option>
+              <option value="2001" data-price="165" data-cooling="aircooled" data-manufacturer="ASUS">[2001] ASUS ROG Strix Radeon RX 560 OC Edition | $165</option>
+              <option value="3683" data-price="320" data-cooling="aircooled" data-manufacturer="ASUS">[3683] ASUS Expedition Radeon RX 570 OC Edition | $320</option>
+              <option value="3771" data-price="330" data-cooling="aircooled" data-manufacturer="ASUS">[3771] ASUS ROG Strix Radeon RX 570 OC Edition | $330</option>
+              <option value="3679" data-price="320" data-cooling="aircooled" data-manufacturer="ASUS">[3679] ASUS ROG Strix Radeon RX 570 8G | $320</option>
+              <option value="3790" data-price="330" data-cooling="aircooled" data-manufacturer="ASUS">[3790] ASUS ROG Strix Radeon RX 570 8G OC Edition | $330</option>
+              <option value="4248" data-price="385" data-cooling="aircooled" data-manufacturer="ASUS">[4248] ASUS AREZ Strix Radeon RX 580 | $385</option>
+              <option value="4290" data-price="390" data-cooling="aircooled" data-manufacturer="ASUS">[4290] ASUS Dual Series Radeon RX 580 OC Edition | $390</option>
+              <option value="4562" data-price="400" data-cooling="aircooled" data-manufacturer="ASUS">[4562] ASUS ROG Strix Radeon RX 5500 XT 8GB Gaming | $400</option>
+              <option value="7477" data-price="650" data-cooling="aircooled" data-manufacturer="ASUS">[7477] ASUS ROG Strix Radeon RX 5600 XT OC Edition 6GB | $650</option>
+              <option value="7904" data-price="720" data-cooling="aircooled" data-manufacturer="ASUS">[7904] ASUS ROG Strix Radeon RX 5700 OC Edition 8GB | $720</option>
+              <option value="8784" data-price="840" data-cooling="aircooled" data-manufacturer="ASUS">[8784] ASUS ROG Strix Radeon RX 5700 XT OC Edition 8GB | $840</option>
+              <option value="6837" data-price="595" data-cooling="aircooled" data-manufacturer="Colorful">[6837] Colorful iGame GeForce RTX 2060 Ultra | $595</option>
+              <option value="6984" data-price="605" data-cooling="aircooled" data-manufacturer="Colorful">[6984] Colorful iGame GeForce RTX 2060 Ultra OC-V | $605</option>
+              <option value="7222" data-price="630" data-cooling="aircooled" data-manufacturer="Colorful">[7222] Colorful iGame GeForce RTX 2060 SUPER Ultra-V | $630</option>
+              <option value="7826" data-price="710" data-cooling="aircooled" data-manufacturer="Colorful">[7826] Colorful iGame GeForce RTX 2070 Ultra OC-V | $710</option>
+              <option value="8372" data-price="760" data-cooling="aircooled" data-manufacturer="Colorful">[8372] Colorful iGame GeForce RTX 2070 Vulcan X OC-V | $760</option>
+              <option value="9271" data-price="845" data-cooling="aircooled" data-manufacturer="Colorful">[9271] Colorful iGame GeForce RTX 2070 SUPER Vulcan OC-V | $845</option>
+              <option value="9785" data-price="890" data-cooling="aircooled" data-manufacturer="Colorful">[9785] Colorful iGame GeForce RTX 2070 SUPER Vulcan X OC-V | $890</option>
+              <option value="9459" data-price="860" data-cooling="aircooled" data-manufacturer="Colorful">[9459] Colorful iGame GeForce RTX 2080 Advanced-V | $860</option>
+              <option value="10309" data-price="935" data-cooling="aircooled" data-manufacturer="Colorful">[10309] Colorful iGame GeForce RTX 2080 SUPER Advanced OC-V | $935</option>
+              <option value="10430" data-price="950" data-cooling="aircooled" data-manufacturer="Colorful">[10430] Colorful iGame GeForce RTX 2080 SUPER Vulcan X OC | $950</option>
+              <option value="11382" data-price="1200" data-cooling="aircooled" data-manufacturer="Colorful">[11382] Colorful iGame GeForce RTX 2080 Ti Advanced OC | $1,200</option>
+              <option value="12427" data-price="1320" data-cooling="aircooled" data-manufacturer="Colorful">[12427] Colorful iGame GeForce RTX 2080 Ti Vulcan X OC | $1,320</option>
+              <option value="8082" data-price="715" data-cooling="aircooled" data-manufacturer="Colorful">[8082] Colorful iGame GeForce RTX 3060 bilibili E-sports Edition OC 12G-V | $715</option>
+              <option value="10535" data-price="970" data-cooling="aircooled" data-manufacturer="Colorful">[10535] Colorful iGame GeForce RTX 3060 Ti bilibili E-sports Edition OC LHR-V | $970</option>
+              <option value="11460" data-price="1040" data-cooling="aircooled" data-manufacturer="Colorful">[11460] Colorful iGame GeForce RTX 3070 Ultra W OC-V | $1,040</option>
+              <option value="12205" data-price="1195" data-cooling="aircooled" data-manufacturer="Colorful">[12205] Colorful iGame GeForce RTX 3070 bilibili E-sports Edition OC LHR-V | $1,195</option>
+              <option value="14685" data-price="1335" data-cooling="aircooled" data-manufacturer="Colorful">[14685] Colorful GeForce RTX 3080 NB 10G-V | $1,335</option>
+              <option value="14685" data-price="1335" data-cooling="aircooled" data-manufacturer="Colorful">[14685] Colorful iGame GeForce RTX 3080 Advanced 10G-V | $1,335</option>
+              <option value="14888" data-price="1335" data-cooling="aircooled" data-manufacturer="Colorful">[14888] Colorful iGame GeForce RTX 3080 Ultra OC 10G-V | $1,335</option>
+              <option value="15090" data-price="1370" data-cooling="aircooled" data-manufacturer="Colorful">[15090] Colorful iGame GeForce RTX 3080 Vulcan OC 10G-V | $1,370</option>
+              <option value="18028" data-price="1605" data-cooling="aircooled" data-manufacturer="Colorful">[18028] Colorful GeForce RTX 3090 NB-V | $1,605</option>
+              <option value="18265" data-price="1620" data-cooling="aircooled" data-manufacturer="Colorful">[18265] Colorful iGame GeForce RTX 3090 Advanced OC-V | $1,620</option>
+              <option value="2019" data-price="160" data-cooling="aircooled" data-manufacturer="DFL">[2019] DFL Radeon R9 280 GR8 3G | $160</option>
+              <option value="3572" data-price="300" data-cooling="aircooled" data-manufacturer="DFL">[3572] DFL Radeon R9 290 GR8 | $300</option>
+              <option value="3717" data-price="325" data-cooling="aircooled" data-manufacturer="DFL">[3717] DFL Radeon R9 290 GR8TOR | $325</option>
+              <option value="1000" data-price="75" data-cooling="aircooled" data-manufacturer="EVGA">[1000] EVGA GeForce GT 1030 SC Gaming | $75</option>
+              <option value="1966" data-price="155" data-cooling="aircooled" data-manufacturer="EVGA">[1966] EVGA GeForce GTX 1050 Ti Gaming | $155</option>
+              <option value="2073" data-price="165" data-cooling="aircooled" data-manufacturer="EVGA">[2073] EVGA GeForce GTX 1050 Ti FTW Gaming | $165</option>
+              <option value="3531" data-price="295" data-cooling="aircooled" data-manufacturer="EVGA">[3531] EVGA GeForce GTX 1060 Gaming 3G | $295</option>
+              <option value="4021" data-price="350" data-cooling="aircooled" data-manufacturer="EVGA">[4021] EVGA GeForce GTX 1060 FTW2 Gaming | $350</option>
+              <option value="5366" data-price="490" data-cooling="aircooled" data-manufacturer="EVGA">[5366] EVGA GeForce GTX 1070 Gaming | $490</option>
+              <option value="5653" data-price="530" data-cooling="aircooled" data-manufacturer="EVGA">[5653] EVGA GeForce GTX 1070 FTW2 Gaming | $530</option>
+              <option value="6869" data-price="655" data-cooling="aircooled" data-manufacturer="EVGA">[6869] EVGA GeForce GTX 1080 Gaming | $655</option>
+              <option value="8266" data-price="825" data-cooling="aircooled" data-manufacturer="EVGA">[8266] EVGA GeForce GTX 1080 Ti Gaming | $825</option>
+              <option value="8747" data-price="875" data-cooling="aircooled" data-manufacturer="EVGA">[8747] EVGA GeForce GTX 1080 Ti K|NGP|N Gaming | $875</option>
+              <option value="2730" data-price="210" data-cooling="aircooled" data-manufacturer="EVGA">[2730] EVGA GeForce GTX 1650 XC ULTRA BLACK GAMING | $210</option>
+              <option value="5239" data-price="420" data-cooling="aircooled" data-manufacturer="EVGA">[5239] EVGA GeForce GTX 1660 SUPER SC ULTRA BLACK GAMING | $420</option>
+              <option value="5931" data-price="475" data-cooling="aircooled" data-manufacturer="EVGA">[5931] EVGA GeForce GTX 1660 Ti XC | $475</option>
+              <option value="5985" data-price="480" data-cooling="aircooled" data-manufacturer="EVGA">[5985] EVGA GeForce GTX 1660 Ti XC ULTRA GAMING | $480</option>
+              <option value="6984" data-price="605" data-cooling="aircooled" data-manufacturer="EVGA">[6984] EVGA GeForce RTX 2060 SC ULTRA GAMING | $605</option>
+              <option value="7222" data-price="630" data-cooling="aircooled" data-manufacturer="EVGA">[7222] EVGA GeForce RTX 2060 SUPER XC BLACK GAMING | $630</option>
+              <option value="8372" data-price="825" data-cooling="aircooled" data-manufacturer="EVGA">[8372] EVGA GeForce RTX 2070 FTW3 ULTRA GAMING | $825</option>
+              <option value="9271" data-price="805" data-cooling="aircooled" data-manufacturer="EVGA">[9271] EVGA GeForce RTX 2070 SUPER FTW3 ULTRA+ | $805</option>
+              <option value="9186" data-price="840" data-cooling="aircooled" data-manufacturer="EVGA">[9186] EVGA GeForce RTX 2070 SUPER XC ULTRA | $840</option>
+              <option value="10067" data-price="960" data-cooling="aircooled" data-manufacturer="EVGA">[10067] EVGA GeForce RTX 2080 SUPER BLACK GAMING | $960</option>
+              <option value="10278" data-price="1030" data-cooling="aircooled" data-manufacturer="EVGA">[10278] EVGA GeForce RTX 2080 FTW3 ULTRA GAMING | $1,030</option>
+              <option value="10801" data-price="1080" data-cooling="aircooled" data-manufacturer="EVGA">[10801] EVGA GeForce RTX 2080Ti XC BLACK EDITION GAMING | $1,080</option>
+              <option value="12311" data-price="1300" data-cooling="aircooled" data-manufacturer="EVGA">[12311] EVGA GeForce RTX 2080 Ti FTW3 ULTRA GAMING | $1,300</option>
+              <option value="14888" data-price="1295" data-cooling="aircooled" data-manufacturer="EVGA">[14888] EVGA GeForce RTX 3080 XC3 ULTRA GAMING | $1,295</option>
+              <option value="15090" data-price="1310" data-cooling="aircooled" data-manufacturer="EVGA">[15090] EVGA GeForce RTX 3080 FTW3 ULTRA GAMING | $1,310</option>
+              <option value="18147" data-price="1400" data-cooling="aircooled" data-manufacturer="EVGA">[18147] EVGA GeForce RTX 3090 XC3 ULTRA GAMING | $1,400</option>
+              <option value="18442" data-price="1420" data-cooling="aircooled" data-manufacturer="EVGA">[18442] EVGA GeForce RTX 3090 FTW3 ULTRA GAMING | $1,420</option>
+              <option value="1000" data-price="75" data-cooling="aircooled" data-manufacturer="GIGABYTE">[1000] GIGABYTE GeForce GT 1030 OC 2G | $75</option>
+              <option value="1556" data-price="120" data-cooling="aircooled" data-manufacturer="GIGABYTE">[1556] GIGABYTE GeForce GTX 1050Ti Windforce OC 2G | $120</option>
+              <option value="2046" data-price="165" data-cooling="aircooled" data-manufacturer="GIGABYTE">[2046] GIGABYTE GeForce GTX 1050Ti Windforce OC 4G | $165</option>
+              <option value="4021" data-price="350" data-cooling="aircooled" data-manufacturer="GIGABYTE">[4021] GIGABYTE AORUS GeForce GTX 1060 6G | $350</option>
+              <option value="4083" data-price="355" data-cooling="aircooled" data-manufacturer="GIGABYTE">[4083] GIGABYTE AORUS GeForce GTX 1060 Xtreme Edition 6G | $355</option>
+              <option value="5749" data-price="550" data-cooling="aircooled" data-manufacturer="GIGABYTE">[5749] GIGABYTE AORUS GeForce GTX 1070 8G | $550</option>
+              <option value="7270" data-price="690" data-cooling="aircooled" data-manufacturer="GIGABYTE">[7270] GIGABYTE AORUS GeForce GTX 1080 8G | $690</option>
+              <option value="7680" data-price="730" data-cooling="aircooled" data-manufacturer="GIGABYTE">[7680] GIGABYTE AORUS GeForce GTX 1080 Xtreme Edition 8G | $730</option>
+              <option value="8803" data-price="880" data-cooling="aircooled" data-manufacturer="GIGABYTE">[8803] GIGABYTE AORUS GeForce GTX 1080Ti 11G | $880</option>
+              <option value="9110" data-price="910" data-cooling="aircooled" data-manufacturer="GIGABYTE">[9110] GIGABYTE AORUS GeForce GTX 1080Ti Xtreme Edition 11G | $910</option>
+              <option value="7381" data-price="680" data-cooling="aircooled" data-manufacturer="GIGABYTE">[7381] GIGABYTE AORUS GeForce RTX 2060 SUPER WINDFORCE OC 8G | $680</option>
+              <option value="8255" data-price="740" data-cooling="aircooled" data-manufacturer="GIGABYTE">[8255] GIGABYTE AORUS GeForce RTX 2060 SUPER 8G | $740</option>
+              <option value="8382" data-price="830" data-cooling="aircooled" data-manufacturer="GIGABYTE">[8382] GIGABYTE AORUS GeForce RTX 2070 XTREME 8G | $830</option>
+              <option value="9271" data-price="950" data-cooling="aircooled" data-manufacturer="GIGABYTE">[9271] GIGABYTE GeForce RTX 2070 SUPER GAMING OC WHITE 8G | $950</option>
+              <option value="9785" data-price="950" data-cooling="aircooled" data-manufacturer="GIGABYTE">[9785] GIGABYTE AORUS GeForce RTX 2070 SUPER 8G | $950</option>
+              <option value="10309" data-price="980" data-cooling="aircooled" data-manufacturer="GIGABYTE">[10309] GIGABYTE AORUS GeForce RTX 2080 SUPER GAMING OC 8G | $980</option>
+              <option value="10430" data-price="1050" data-cooling="aircooled" data-manufacturer="GIGABYTE">[10430] GIGABYTE AORUS GeForce RTX 2080 SUPER 8G | $1,050</option>
+              <option value="10469" data-price="1050" data-cooling="aircooled" data-manufacturer="GIGABYTE">[10469] GIGABYTE AORUS GeForce RTX 2080 XTREME 8G | $1,050</option>
+              <option value="12450" data-price="1310" data-cooling="aircooled" data-manufacturer="GIGABYTE">[12450] GIGABYTE AORUS GeForce RTX 2080 Ti XTREME 11G | $1,310</option>
+              <option value="3713" data-price="325" data-cooling="aircooled" data-manufacturer="GIGABYTE">[3713] GIGABYTE AORUS Radeon RX570 4G | $325</option>
+              <option value="4271" data-price="390" data-cooling="aircooled" data-manufacturer="GIGABYTE">[4271] GIGABYTE AORUS Radeon RX580 4G | $390</option>
+              <option value="4331" data-price="395" data-cooling="aircooled" data-manufacturer="GIGABYTE">[4331] GIGABYTE AORUS Radeon RX580 8G | $395</option>
+              <option value="4554" data-price="365" data-cooling="aircooled" data-manufacturer="GIGABYTE">[4554] GIGABYTE Radeon RX 5500 XT OC 8G | $365</option>
+              <option value="4453" data-price="390" data-cooling="aircooled" data-manufacturer="GIGABYTE">[4453] GIGABYTE Radeon RX 5500 XT GAMING OC 8G | $390</option>
+              <option value="6819" data-price="570" data-cooling="aircooled" data-manufacturer="GIGABYTE">[6819] GIGABYTE Radeon RX 5600 XT WINDFORCE OC 6G | $570</option>
+              <option value="6819" data-price="570" data-cooling="aircooled" data-manufacturer="GIGABYTE">[6819] GIGABYTE Radeon RX 5600 XT GAMING OC 6G | $570</option>
+              <option value="7904" data-price="685" data-cooling="aircooled" data-manufacturer="GIGABYTE">[7904] GIGABYTE Radeon RX 5700 GAMING OC 8G | $685</option>
+              <option value="8728" data-price="795" data-cooling="aircooled" data-manufacturer="GIGABYTE">[8728] GIGABYTE Radeon RX 5700 XT GAMING OC 8G | $795</option>
+              <option value="8773" data-price="800" data-cooling="aircooled" data-manufacturer="GIGABYTE">[8773] GIGABYTE AORUS Radeon RX 5700 XT 8G | $800</option>
+              <option value="1846" data-price="140" data-cooling="aircooled" data-manufacturer="MSI">[1846] MSI GeForce GTX 950 Gaming 2G | $140</option>
+              <option value="2123" data-price="170" data-cooling="aircooled" data-manufacturer="MSI">[2123] MSI GeForce GTX 960 Gaming 2G | $170</option>
+              <option value="2225" data-price="180" data-cooling="aircooled" data-manufacturer="MSI">[2225] MSI GeForce GTX 960 Gaming 2G LE | $180</option>
+              <option value="2123" data-price="170" data-cooling="aircooled" data-manufacturer="MSI">[2123] MSI GeForce GTX 960 Gaming LE 100ME | $170</option>
+              <option value="2225" data-price="180" data-cooling="aircooled" data-manufacturer="MSI">[2225] MSI GeForce GTX 960 Gaming 100ME | $180</option>
+              <option value="2123" data-price="170" data-cooling="aircooled" data-manufacturer="MSI">[2123] MSI GeForce GTX 960 Gaming 4G LE | $170</option>
+              <option value="2225" data-price="180" data-cooling="aircooled" data-manufacturer="MSI">[2225] MSI GeForce GTX 960 Gaming 4G | $180</option>
+              <option value="3286" data-price="275" data-cooling="aircooled" data-manufacturer="MSI">[3286] MSI GeForce GTX 970 Gaming LE 100ME | $275</option>
+              <option value="3377" data-price="280" data-cooling="aircooled" data-manufacturer="MSI">[3377] MSI GeForce GTX 970 Gaming 100ME | $280</option>
+              <option value="3193" data-price="265" data-cooling="aircooled" data-manufacturer="MSI">[3193] MSI GeForce GTX 970 Gaming 4G | $265</option>
+              <option value="3441" data-price="285" data-cooling="aircooled" data-manufacturer="MSI">[3441] MSI GeForce GTX 970 Gaming 4G Golden Edition | $285</option>
+              <option value="4051" data-price="350" data-cooling="aircooled" data-manufacturer="MSI">[4051] MSI GeForce GTX 980 Gaming 4G LE | $350</option>
+              <option value="4764" data-price="435" data-cooling="aircooled" data-manufacturer="MSI">[4764] MSI GeForce GTX 980Ti Gaming 6G LE | $435</option>
+              <option value="5408" data-price="490" data-cooling="aircooled" data-manufacturer="MSI">[5408] MSI GeForce GTX 980Ti Gaming 6G | $490</option>
+              <option value="5454" data-price="495" data-cooling="aircooled" data-manufacturer="MSI">[5454] MSI GeForce GTX 980Ti 6G Gaming Golden Edition | $495</option>
+              <option value="1481" data-price="165" data-cooling="aircooled" data-manufacturer="MSI">[1481] MSI GeForce GTX 1050 Gaming 2G | $165</option>
+              <option value="1556" data-price="170" data-cooling="aircooled" data-manufacturer="MSI">[1556] MSI GeForce GTX 1050 Gaming X 2G | $170</option>
+              <option value="1992" data-price="160" data-cooling="aircooled" data-manufacturer="MSI">[1992] MSI GeForce GTX 1050 Ti Gaming 4G | $160</option>
+              <option value="2046" data-price="165" data-cooling="aircooled" data-manufacturer="MSI">[2046] MSI GeForce GTX 1050 Ti Gaming X 4G | $165</option>
+              <option value="3570" data-price="300" data-cooling="aircooled" data-manufacturer="MSI">[3570] MSI GeForce GTX 1060 Gaming 3G | $300</option>
+              <option value="3650" data-price="305" data-cooling="aircooled" data-manufacturer="MSI">[3650] MSI GeForce GTX 1060 Gaming X 3G | $305</option>
+              <option value="3767" data-price="330" data-cooling="aircooled" data-manufacturer="MSI">[3767] MSI GeForce GTX 1060 Gaming 6G | $330</option>
+              <option value="3912" data-price="340" data-cooling="aircooled" data-manufacturer="MSI">[3912] MSI GeForce GTX 1060 Gaming + 6G | $340</option>
+              <option value="3931" data-price="340" data-cooling="aircooled" data-manufacturer="MSI">[3931] MSI GeForce GTX 1060 Gaming X 6G | $340</option>
+              <option value="4049" data-price="350" data-cooling="aircooled" data-manufacturer="MSI">[4049] MSI GeForce GTX 1060 Gaming X+ 6G | $350</option>
+              <option value="3590" data-price="300" data-cooling="aircooled" data-manufacturer="MSI">[3590] MSI GeForce GTX 1060 Gaming VR 3G | $300</option>
+              <option value="3793" data-price="330" data-cooling="aircooled" data-manufacturer="MSI">[3793] MSI GeForce GTX 1060 Gaming VR 6G | $330</option>
+              <option value="3701" data-price="310" data-cooling="aircooled" data-manufacturer="MSI">[3701] MSI GeForce GTX 1060 Gaming VR X 3G | $310</option>
+              <option value="3931" data-price="340" data-cooling="aircooled" data-manufacturer="MSI">[3931] MSI GeForce GTX 1060 Gaming VR X 6G | $340</option>
+              <option value="5462" data-price="520" data-cooling="aircooled" data-manufacturer="MSI">[5462] MSI GeForce GTX 1070 Gaming 8G | $520</option>
+              <option value="5676" data-price="540" data-cooling="aircooled" data-manufacturer="MSI">[5676] MSI GeForce GTX 1070 Gaming X 8G | $540</option>
+              <option value="5834" data-price="555" data-cooling="aircooled" data-manufacturer="MSI">[5834] MSI GeForce GTX 1070 Gaming Z 8G | $555</option>
+              <option value="6380" data-price="610" data-cooling="aircooled" data-manufacturer="MSI">[6380] MSI GeForce GTX 1070 Ti Titanium 8G | $610</option>
+              <option value="6380" data-price="610" data-cooling="aircooled" data-manufacturer="MSI">[6380] MSI GeForce GTX 1070 Ti Gaming 8G | $610</option>
+              <option value="6998" data-price="655" data-cooling="aircooled" data-manufacturer="MSI">[6998] MSI GeForce GTX 1080 Gaming 8G | $655</option>
+              <option value="7224" data-price="690" data-cooling="aircooled" data-manufacturer="MSI">[7224] MSI GeForce GTX 1080 Gaming X 8G | $690</option>
+              <option value="7239" data-price="690" data-cooling="aircooled" data-manufacturer="MSI">[7239] MSI GeForce GTX 1080 Gaming + 8G | $690</option>
+              <option value="7466" data-price="710" data-cooling="aircooled" data-manufacturer="MSI">[7466] MSI GeForce GTX 1080 Gaming X+ 8G | $710</option>
+              <option value="7395" data-price="705" data-cooling="aircooled" data-manufacturer="MSI">[7395] MSI GeForce GTX 1080 Gaming Z 8G | $705</option>
+              <option value="8733" data-price="805" data-cooling="aircooled" data-manufacturer="MSI">[8733] MSI GeForce GTX 1080Ti Gaming 11G | $805</option>
+              <option value="8431" data-price="805" data-cooling="aircooled" data-manufacturer="MSI">[8431] MSI GeForce GTX 1080Ti Gaming X 11G | $805</option>
+              <option value="7301" data-price="610" data-cooling="aircooled" data-manufacturer="MSI">[7301] MSI GeForce RTX 2060 SUPER Ventus GP OC | $610</option>
+              <option value="7381" data-price="615" data-cooling="aircooled" data-manufacturer="MSI">[7381] MSI GeForce RTX 2060 SUPER ARMOR OC | $615</option>
+              <option value="7460" data-price="620" data-cooling="aircooled" data-manufacturer="MSI">[7460] MSI GeForce RTX 2060 SUPER GAMING X | $620</option>
+              <option value="9100" data-price="790" data-cooling="aircooled" data-manufacturer="MSI">[9100] MSI GeForce RTX 2070 SUPER Ventus GP OC | $790</option>
+              <option value="9186" data-price="800" data-cooling="aircooled" data-manufacturer="MSI">[9186] MSI GeForce RTX 2070 SUPER GAMING X | $800</option>
+              <option value="9186" data-price="800" data-cooling="aircooled" data-manufacturer="MSI">[9186] MSI GeForce RTX 2070 SUPER GAMING X Trio | $800</option>
+              <option value="10188" data-price="925" data-cooling="aircooled" data-manufacturer="MSI">[10188] MSI GeForce RTX 2080 SUPER Ventus XS OC | $925</option>
+              <option value="10309" data-price="935" data-cooling="aircooled" data-manufacturer="MSI">[10309] MSI GeForce RTX 2080 SUPER GAMING X Trio | $935</option>
+              <option value="10065" data-price="960" data-cooling="aircooled" data-manufacturer="MSI">[10065] MSI GeForce RTX 2080 SUPER™ AERO | $960</option>
+              <option value="11134" data-price="1060" data-cooling="aircooled" data-manufacturer="MSI">[11134] MSI GeForce RTX™ 3060Ti GAMING X TRIO | $1,060</option>
+              <option value="12205" data-price="1160" data-cooling="aircooled" data-manufacturer="MSI">[12205] MSI GeForce RTX™ 3070 VENTUS 2X | $1,160</option>
+              <option value="15563" data-price="1565" data-cooling="aircooled" data-manufacturer="MSI">[15563] MSI GeForce RTX™ 3080 SUPRIM X 10G | $1,565</option>
+              <option value="18147" data-price="1610" data-cooling="aircooled" data-manufacturer="MSI">[18147] MSI GeForce RTX™ 3090 VENTUS 3X 24G OC | $1,610</option>
+              <option value="18383" data-price="1625" data-cooling="aircooled" data-manufacturer="MSI">[18383] MSI GeForce RTX™ 3090 GAMING X TRIO 24G | $1,625</option>
+              <option value="18679" data-price="1650" data-cooling="aircooled" data-manufacturer="MSI">[18679] MSI GeForce RTX™ 3090 SUPRIM X 24G | $1,650</option>
+              <option value="1516" data-price="115" data-cooling="aircooled" data-manufacturer="MSI">[1516] MSI Radeon R7 370 Gaming 2G | $115</option>
+              <option value="1574" data-price="120" data-cooling="aircooled" data-manufacturer="MSI">[1574] MSI Radeon R7 370 Gaming 4G | $120</option>
+              <option value="2057" data-price="165" data-cooling="aircooled" data-manufacturer="MSI">[2057] MSI Radeon R9 280 Gaming 3G LE | $165</option>
+              <option value="2117" data-price="170" data-cooling="aircooled" data-manufacturer="MSI">[2117] MSI Radeon R9 280 Gaming 3G | $170</option>
+              <option value="2685" data-price="215" data-cooling="aircooled" data-manufacturer="MSI">[2685] MSI Radeon R9 380 Gaming 2G | $215</option>
+              <option value="2685" data-price="215" data-cooling="aircooled" data-manufacturer="MSI">[2685] MSI Radeon R9 380 Gaming 4G | $215</option>
+              <option value="3885" data-price="340" data-cooling="aircooled" data-manufacturer="MSI">[3885] MSI Radeon R9 390 Gaming 8G LE | $340</option>
+              <option value="4041" data-price="350" data-cooling="aircooled" data-manufacturer="MSI">[4041] MSI Radeon R9 390 Gaming 8G | $350</option>
+              <option value="4212" data-price="385" data-cooling="aircooled" data-manufacturer="MSI">[4212] MSI Radeon R9 390X Gaming 8G LE | $385</option>
+              <option value="4334" data-price="395" data-cooling="aircooled" data-manufacturer="MSI">[4334] MSI Radeon R9 390X Gaming 8G | $395</option>
+              <option value="3539" data-price="295" data-cooling="aircooled" data-manufacturer="MSI">[3539] MSI Radeon RX 470 GAMING 4G | $295</option>
+              <option value="3589" data-price="300" data-cooling="aircooled" data-manufacturer="MSI">[3589] MSI Radeon RX 470 GAMING X 4G | $300</option>
+              <option value="3539" data-price="295" data-cooling="aircooled" data-manufacturer="MSI">[3539] MSI Radeon RX 470 GAMING 8G | $295</option>
+              <option value="3589" data-price="300" data-cooling="aircooled" data-manufacturer="MSI">[3589] MSI Radeon RX 470 GAMING X 8G | $300</option>
+              <option value="3911" data-price="340" data-cooling="aircooled" data-manufacturer="MSI">[3911] MSI Radeon RX 480 Gaming 4G | $340</option>
+              <option value="3976" data-price="345" data-cooling="aircooled" data-manufacturer="MSI">[3976] MSI Radeon RX 480 Gaming X 4G | $345</option>
+              <option value="4024" data-price="350" data-cooling="aircooled" data-manufacturer="MSI">[4024] MSI Radeon RX 480 Gaming 8G | $350</option>
+              <option value="4089" data-price="355" data-cooling="aircooled" data-manufacturer="MSI">[4089] MSI Radeon RX 480 Gaming X 8G | $355</option>
+              <option value="3644" data-price="305" data-cooling="aircooled" data-manufacturer="MSI">[3644] MSI Radeon RX 570 Gaming 4G | $305</option>
+              <option value="3708" data-price="320" data-cooling="aircooled" data-manufacturer="MSI">[3708] MSI Radeon RX 570 Gaming X 4G | $320</option>
+              <option value="3644" data-price="305" data-cooling="aircooled" data-manufacturer="MSI">[3644] MSI Radeon RX 570 Gaming 8G | $305</option>
+              <option value="3708" data-price="320" data-cooling="aircooled" data-manufacturer="MSI">[3708] MSI Radeon RX 570 Gaming X 8G | $320</option>
+              <option value="4242" data-price="385" data-cooling="aircooled" data-manufacturer="MSI">[4242] MSI Radeon RX 580 Gaming 4G | $385</option>
+              <option value="4304" data-price="390" data-cooling="aircooled" data-manufacturer="MSI">[4304] MSI Radeon RX 580 Gaming X 4G | $390</option>
+              <option value="4302" data-price="390" data-cooling="aircooled" data-manufacturer="MSI">[4302] MSI Radeon RX 580 Gaming 8G | $390</option>
+              <option value="4438" data-price="405" data-cooling="aircooled" data-manufacturer="MSI">[4438] MSI Radeon RX 580 Gaming + 8G | $405</option>
+              <option value="4365" data-price="395" data-cooling="aircooled" data-manufacturer="MSI">[4365] MSI Radeon RX 580 Gaming X 8G | $395</option>
+              <option value="4465" data-price="405" data-cooling="aircooled" data-manufacturer="MSI">[4465] MSI Radeon RX 580 Gaming X+ 8G | $405</option>
+              <option value="4767" data-price="380" data-cooling="aircooled" data-manufacturer="MSI">[4767] MSI Radeon RX 5500 XT GAMING X 8G | $380</option>
+              <option value="7017" data-price="585" data-cooling="aircooled" data-manufacturer="MSI">[7017] MSI Radeon RX 5600 XT GAMING X | $585</option>
+              <option value="7904" data-price="685" data-cooling="aircooled" data-manufacturer="MSI">[7904] MSI Radeon RX 5700 EVOKE GP OC | $685</option>
+              <option value="7893" data-price="750" data-cooling="aircooled" data-manufacturer="MSI">[7893] MSI Radeon RX 5700 GAMING X | $750</option>
+              <option value="8736" data-price="830" data-cooling="aircooled" data-manufacturer="MSI">[8736] MSI Radeon RX 5700 XT MECH OC | $830</option>
+              <option value="8760" data-price="830" data-cooling="aircooled" data-manufacturer="MSI">[8760] MSI Radeon RX 5700 XT GAMING X | $830</option>
+              <option value="13092" data-price="1245" data-cooling="aircooled" data-manufacturer="MSI">[13092] MSI Radeon RX 6800 GAMING TRIO 16G | $1,245</option>
+              <option value="13567" data-price="1290" data-cooling="aircooled" data-manufacturer="MSI">[13567] MSI Radeon RX 6800 GAMING X TRIO 16G | $1,290</option>
+              <option value="16155" data-price="1540" data-cooling="aircooled" data-manufacturer="MSI">[16155] MSI Radeon RX 6800 XT GAMING TRIO 16G | $1,540</option>
+              <option value="16272" data-price="1550" data-cooling="aircooled" data-manufacturer="MSI">[16272] MSI Radeon RX 6800 XT GAMING X TRIO 16G | $1,550</option>
+              <option value="16954" data-price="1695" data-cooling="aircooled" data-manufacturer="MSI">[16954] MSI Radeon RX 6900 XT GAMING TRIO 16G | $1,695</option>
+              <option value="17308" data-price="1730" data-cooling="aircooled" data-manufacturer="MSI">[17308] MSI Radeon RX 6900 XT GAMING X TRIO 16G | $1,730</option>
+              <option value="3719" data-price="340" data-cooling="aircooled" data-manufacturer="NVIDIA">[3719] NVIDIA GeForce GTX 1060 Founders Edition | $340</option>
+              <option value="5366" data-price="530" data-cooling="aircooled" data-manufacturer="NVIDIA">[5366] NVIDIA GeForce GTX 1070 Founders Edition | $530</option>
+              <option value="6380" data-price="640" data-cooling="aircooled" data-manufacturer="NVIDIA">[6380] NVIDIA GeForce GTX 1070 Ti Founders Edition | $640</option>
+              <option value="6896" data-price="690" data-cooling="aircooled" data-manufacturer="NVIDIA">[6896] NVIDIA GeForce GTX 1080 Founders Edition | $690</option>
+              <option value="8266" data-price="870" data-cooling="aircooled" data-manufacturer="NVIDIA">[8266] NVIDIA GeForce GTX 1080 Ti Founders Edition | $870</option>
+              <option value="6738" data-price="590" data-cooling="aircooled" data-manufacturer="NVIDIA">[6738] NVIDIA GeForce RTX 2060 Founders Edition | $590</option>
+              <option value="7359" data-price="730" data-cooling="aircooled" data-manufacturer="NVIDIA">[7359] NVIDIA GeForce RTX 2070 Founders Edition | $730</option>
+              <option value="9459" data-price="950" data-cooling="aircooled" data-manufacturer="NVIDIA">[9459] NVIDIA GeForce RTX 2080 Founders Edition | $950</option>
+              <option value="10685" data-price="1130" data-cooling="aircooled" data-manufacturer="NVIDIA">[10685] NVIDIA GeForce RTX 2080 Ti Founders Edition | $1,130</option>
+              <option value="10535" data-price="1005" data-cooling="aircooled" data-manufacturer="NVIDIA">[10535] NVIDIA GeForce RTX 3060 Ti Founders Edition | $1,005</option>
+              <option value="12205" data-price="1160" data-cooling="aircooled" data-manufacturer="NVIDIA">[12205] NVIDIA GeForce RTX 3070 | $1,160</option>
+              <option value="12735" data-price="1160" data-cooling="aircooled" data-manufacturer="NVIDIA">[12735] NVIDIA GeForce RTX 3070 Ti Founders Edition | $1,160</option>
+              <option value="14685" data-price="1275" data-cooling="aircooled" data-manufacturer="NVIDIA">[14685] NVIDIA GeForce RTX 3080 | $1,275</option>
+              <option value="17890" data-price="1555" data-cooling="aircooled" data-manufacturer="NVIDIA">[17890] NVIDIA GeForce RTX 3080 Ti Founders Edition | $1,555</option>
+              <option value="18028" data-price="1395" data-cooling="aircooled" data-manufacturer="NVIDIA">[18028] NVIDIA GeForce RTX 3090 | $1,395</option>
+              <option value="1163" data-price="90" data-cooling="aircooled" data-manufacturer="Shean">[1163] Shean GeForce GTX 750 Ti Gamer | $90</option>
+              <option value="3193" data-price="265" data-cooling="aircooled" data-manufacturer="Shean">[3193] Shean GeForce GTX 970 Gamer | $265</option>
+              <option value="3348" data-price="280" data-cooling="aircooled" data-manufacturer="Shean">[3348] Shean GeForce GTX 970 Gamer XL | $280</option>
+              <option value="3938" data-price="340" data-cooling="aircooled" data-manufacturer="Shean">[3938] Shean GeForce GTX 980 Gamer | $340</option>
+              <option value="4130" data-price="375" data-cooling="aircooled" data-manufacturer="Shean">[4130] Shean GeForce GTX 980 Gamer XL | $375</option>
+              <option value="2087" data-price="165" data-cooling="aircooled" data-manufacturer="ZOTAC">[2087] ZOTAC GeForce GTX 1050 Ti OC Edition | $165</option>
+              <option value="3719" data-price="320" data-cooling="aircooled" data-manufacturer="ZOTAC">[3719] ZOTAC GeForce GTX 1060 Mini | $320</option>
+              <option value="3843" data-price="330" data-cooling="aircooled" data-manufacturer="ZOTAC">[3843] ZOTAC GeForce GTX 1060 AMP! Edition | $330</option>
+              <option value="3694" data-price="515" data-cooling="aircooled" data-manufacturer="ZOTAC">[3694] ZOTAC GeForce GTX 1070 Mini | $515</option>
+              <option value="5794" data-price="550" data-cooling="aircooled" data-manufacturer="ZOTAC">[5794] ZOTAC GeForce GTX 1070 AMP Extreme | $550</option>
+              <option value="6966" data-price="665" data-cooling="aircooled" data-manufacturer="ZOTAC">[6966] ZOTAC GeForce GTX 1080 Mini | $665</option>
+              <option value="7563" data-price="720" data-cooling="aircooled" data-manufacturer="ZOTAC">[7563] ZOTAC GeForce GTX 1080 AMP Extreme | $720</option>
+              <option value="8428" data-price="840" data-cooling="aircooled" data-manufacturer="ZOTAC">[8428] ZOTAC GeForce GTX 1080 Ti Mini | $840</option>
+              <option value="9084" data-price="910" data-cooling="aircooled" data-manufacturer="ZOTAC">[9084] ZOTAC GeForce GTX 1080 Ti AMP Extreme | $910</option>
+              <option value="5985" data-price="540" data-cooling="aircooled" data-manufacturer="ZOTAC">[5985] ZOTAC GeForce GTX 1660 Ti AMP | $540</option>
+              <option value="7381" data-price="615" data-cooling="aircooled" data-manufacturer="ZOTAC">[7381] ZOTAC GeForce RTX 2060 SUPER Mini | $615</option>
+              <option value="7540" data-price="650" data-cooling="aircooled" data-manufacturer="ZOTAC">[7540] ZOTAC GeForce RTX 2060 SUPER Amp Extreme | $650</option>
+              <option value="8501" data-price="740" data-cooling="aircooled" data-manufacturer="ZOTAC">[8501] ZOTAC GeForce RTX 2070 SUPER Mini | $740</option>
+              <option value="10067" data-price="950" data-cooling="aircooled" data-manufacturer="ZOTAC">[10067] ZOTAC Gaming GeForce RTX 2080 SUPER Twin Fan | $950</option>
+              <option value="10309" data-price="980" data-cooling="aircooled" data-manufacturer="ZOTAC">[10309] ZOTAC Gaming GeForce RTX 2080 SUPER Amp | $980</option>
+              <option value="10551" data-price="1000" data-cooling="aircooled" data-manufacturer="ZOTAC">[10551] ZOTAC Gaming GeForce RTX 2080 SUPER Amp Extreme | $1,000</option>
+              <option value="10685" data-price="1050" data-cooling="aircooled" data-manufacturer="ZOTAC">[10685] ZOTAC Gaming GeForce RTX 2080 Ti Blower | $1,050</option>
+              <option value="11614" data-price="1150" data-cooling="aircooled" data-manufacturer="ZOTAC">[11614] ZOTAC Gaming GeForce RTX 2080 Ti Amp | $1,150</option>
+              <option value="11614" data-price="1150" data-cooling="aircooled" data-manufacturer="ZOTAC">[11614] ZOTAC Gaming GeForce RTX 2080 Ti Amp MAXX | $1,150</option>
+              <option value="12842" data-price="1300" data-cooling="aircooled" data-manufacturer="ZOTAC">[12842] ZOTAC Gaming GeForce RTX 2080 Ti AMP Extreme | $1,300</option>
+              <option value="8176" data-price="745" data-cooling="aircooled" data-manufacturer="ZOTAC">[8176] ZOTAC GAMING GeForce RTX 3060 Twin Edge OC | $745</option>
+              <option value="10644" data-price="1015" data-cooling="aircooled" data-manufacturer="ZOTAC">[10644] ZOTAC GAMING GeForce RTX 3060 Ti Twin Edge OC | $1,015</option>
+              <option value="8364" data-price="760" data-cooling="aircooled" data-manufacturer="ZOTAC">[8364] ZOTAC GAMING GeForce RTX 3060 AMP White Edition | $760</option>
+              <option value="12350" data-price="1125" data-cooling="aircooled" data-manufacturer="ZOTAC">[12350] ZOTAC Gaming GeForce RTX 3070 Twin Edge OC White Edition | $1,125</option>
+              <option value="12371" data-price="1125" data-cooling="aircooled" data-manufacturer="ZOTAC">[12371] ZOTAC Gaming GeForce RTX 3070 Twin Edge OC | $1,125</option>
+              <option value="12537" data-price="1195" data-cooling="aircooled" data-manufacturer="ZOTAC">[12537] ZOTAC GAMING GeForce RTX 3070 AMP Holo | $1,195</option>
+              <option value="13283" data-price="1265" data-cooling="aircooled" data-manufacturer="ZOTAC">[13283] ZOTAC GAMING GeForce RTX 3070 Ti AMP Holo | $1,265</option>
+              <option value="14685" data-price="1400" data-cooling="aircooled" data-manufacturer="ZOTAC">[14685] ZOTAC GAMING GeForce RTX 3080 Trinity | $1,400</option>
+              <option value="14820" data-price="1410" data-cooling="aircooled" data-manufacturer="ZOTAC">[14820] ZOTAC Gaming GeForce RTX 3080 Trinity OC White Edition | $1,410</option>
+              <option value="18010" data-price="1715" data-cooling="aircooled" data-manufacturer="ZOTAC">[18010] ZOTAC Gaming GeForce RTX 3080 Ti Trinity OC | $1,715</option>
+              <option value="18071" data-price="1805" data-cooling="aircooled" data-manufacturer="ZOTAC">[18071] ZOTAC GAMING GeForce RTX 3080 Ti AMP Holo | $1,805</option>
+              <option value="18265" data-price="1825" data-cooling="aircooled" data-manufacturer="ZOTAC">[18265] ZOTAC GAMING GeForce RTX 3090 AMP Core Holo | $1,825</option>
+            </optgroup>
+
+            <optgroup label="Watercooled GPUs">
+              <option value="6343" data-price="730" data-cooling="watercooled" data-manufacturer="AMD">[6343] AMD Radeon RX Vega 56 | EKWB EK-FC Acetal $730</option>
+              <option value="6343" data-price="730" data-cooling="watercooled" data-manufacturer="AMD">[6343] AMD Radeon RX Vega 56 | EKWB EK-FC Plexi $730</option>
+              <option value="6343" data-price="780" data-cooling="watercooled" data-manufacturer="AMD">[6343] AMD Radeon RX Vega 56 | EKWB EK-FC Plexi RGB $780</option>
+              <option value="6906" data-price="810" data-cooling="watercooled" data-manufacturer="AMD">[6906] AMD Radeon RX Vega 64 | EKWB EK-FC Acetal $810</option>
+              <option value="6906" data-price="810" data-cooling="watercooled" data-manufacturer="AMD">[6906] AMD Radeon RX Vega 64 | EKWB EK-FC Plexi $810</option>
+              <option value="6906" data-price="960" data-cooling="watercooled" data-manufacturer="AMD">[6906] AMD Radeon RX Vega 64 | EKWB EK-FC Plexi RGB $960</option>
+              <option value="15512" data-price="1600" data-cooling="watercooled" data-manufacturer="Corsair">[15512] CORSAIR Radeon RX 6800 XT | Corsair Hydro Series XG7 RGB $1,600</option>
+              <option value="16501" data-price="1700" data-cooling="watercooled" data-manufacturer="Corsair">[16501] CORSAIR Radeon RX 6900 XT | Corsair Hydro Series XG7 RGB $1,700</option>
+              <option value="12205" data-price="1450" data-cooling="watercooled" data-manufacturer="Corsair">[12205] CORSAIR GeForce RTX 3070 | Corsair Hydro X Series XG7 STRIX RGB $1,450</option>
+              <option value="14685" data-price="1700" data-cooling="watercooled" data-manufacturer="Corsair">[14685] CORSAIR GeForce RTX 3080 | Corsair Hydro X Series XG7 REFERENCE $1,700</option>
+              <option value="14685" data-price="1700" data-cooling="watercooled" data-manufacturer="Corsair">[14685] CORSAIR GeForce RTX 3080 FE | Corsair Hydro X Series XG7 RGB $1,700</option>
+              <option value="14685" data-price="1700" data-cooling="watercooled" data-manufacturer="Corsair">[14685] CORSAIR GeForce RTX 3080 | Corsair Hydro X Series XG7 VENTUS RGB $1,700</option>
+              <option value="14685" data-price="1700" data-cooling="watercooled" data-manufacturer="Corsair">[14685] CORSAIR GeForce RTX 3080 | Corsair Hydro X Series XG7 STRIX RGB $1,700</option>
+              <option value="18028" data-price="1900" data-cooling="watercooled" data-manufacturer="Corsair">[18028] CORSAIR GeForce RTX 3090 | Corsair Hydro X Series XG7 REFERENCE $1,900</option>
+              <option value="18028" data-price="1900" data-cooling="watercooled" data-manufacturer="Corsair">[18028] CORSAIR GeForce RTX 3090 FE | Corsair Hydro X Series XG7 RGB $1,900</option>
+              <option value="18028" data-price="1900" data-cooling="watercooled" data-manufacturer="Corsair">[18028] CORSAIR GeForce RTX 3090 | Corsair Hydro X Series XG7 VENTUS RGB $1,900</option>
+              <option value="18028" data-price="1900" data-cooling="watercooled" data-manufacturer="Corsair">[18028] CORSAIR GeForce RTX 3090 | Corsair Hydro X Series XG7 STRIX RGB $1,900</option>
+              <option value="10309" data-price="1350" data-cooling="watercooled" data-manufacturer="EVGA">[10309] EVGA GeForce RTX 2080 SUPER FTW3 HYDRO COPPER GAMING $1,350</option>
+              <option value="10685" data-price="1350" data-cooling="watercooled" data-manufacturer="EVGA">[10685] EVGA GeForce RTX 2080 Ti XC HYDRO COPPER GAMING $1,350</option>
+              <option value="12311" data-price="1500" data-cooling="watercooled" data-manufacturer="EVGA">[12311] EVGA GeForce RTX 2080 Ti FTW3 ULTRA HYDRO COPPER GAMING $1,500</option>
+              <option value="14888" data-price="1750" data-cooling="watercooled" data-manufacturer="EVGA">[14888] EVGA GeForce RTX 3080 XC3 ULTRA HYDRO COPPER GAMING $1,750</option>
+              <option value="15090" data-price="1800" data-cooling="watercooled" data-manufacturer="EVGA">[15090] EVGA GeForce RTX 3080 FTW3 ULTRA HYDRO COPPER GAMING $1,800</option>
+              <option value="18147" data-price="1950" data-cooling="watercooled" data-manufacturer="EVGA">[18147] EVGA GeForce RTX 3090 XC3 ULTRA HYDRO COPPER GAMING $1,950</option>
+              <option value="18442" data-price="2000" data-cooling="watercooled" data-manufacturer="EVGA">[18442] EVGA GeForce RTX 3090 FTW3 ULTRA HYDRO COPPER GAMING $2,000</option>
+              <option value="10430" data-price="1400" data-cooling="watercooled" data-manufacturer="GIGABYTE">[10430] GIGABYTE AORUS GeForce RTX 2080 SUPER WATERFORCE WB 8G $1,400</option>
+              <option value="12450" data-price="1550" data-cooling="watercooled" data-manufacturer="GIGABYTE">[12450] GIGABYTE AORUS GeForce RTX 2080 Ti XTREME WATERFORCE $1,550</option>
+              <option value="5366" data-price="650" data-cooling="watercooled" data-manufacturer="NVIDIA">[5366] NVIDIA GeForce GTX 1070 | EKWB EK-FC Acetal $650</option>
+              <option value="5366" data-price="650" data-cooling="watercooled" data-manufacturer="NVIDIA">[5366] NVIDIA GeForce GTX 1070 | EKWB EK-FC Plexi $650</option>
+              <option value="5366" data-price="700" data-cooling="watercooled" data-manufacturer="NVIDIA">[5366] NVIDIA GeForce GTX 1070 | EKWB EK-FC Plexi RGB $700</option>
+              <option value="6380" data-price="760" data-cooling="watercooled" data-manufacturer="NVIDIA">[6380] NVIDIA GeForce GTX 1070 Ti | EKWB EK-FC Acetal $760</option>
+              <option value="6380" data-price="760" data-cooling="watercooled" data-manufacturer="NVIDIA">[6380] NVIDIA GeForce GTX 1070 Ti | EKWB EK-FC Plexi $760</option>
+              <option value="6380" data-price="810" data-cooling="watercooled" data-manufacturer="NVIDIA">[6380] NVIDIA GeForce GTX 1070 Ti | EKWB EK-FC Plexi RGB $810</option>
+              <option value="6896" data-price="805" data-cooling="watercooled" data-manufacturer="NVIDIA">[6896] NVIDIA GeForce GTX 1080 | Alphacool NexXxoS GPX M10 $805</option>
+              <option value="6896" data-price="805" data-cooling="watercooled" data-manufacturer="NVIDIA">[6896] NVIDIA GeForce GTX 1080 | EKWB EK-FC Acetal $805</option>
+              <option value="6896" data-price="805" data-cooling="watercooled" data-manufacturer="NVIDIA">[6896] NVIDIA GeForce GTX 1080 | EKWB EK-FC Plexi $805</option>
+              <option value="6896" data-price="855" data-cooling="watercooled" data-manufacturer="NVIDIA">[6896] NVIDIA GeForce GTX 1080 | EKWB EK-FC Plexi RGB $855</option>
+              <option value="8266" data-price="955" data-cooling="watercooled" data-manufacturer="NVIDIA">[8266] NVIDIA GeForce GTX 1080 Ti | EKWB EK-FC Acetal $955</option>
+              <option value="8266" data-price="955" data-cooling="watercooled" data-manufacturer="NVIDIA">[8266] NVIDIA GeForce GTX 1080 Ti | EKWB EK-FC Plexi $955</option>
+              <option value="8266" data-price="1005" data-cooling="watercooled" data-manufacturer="NVIDIA">[8266] NVIDIA GeForce GTX 1080 Ti | EKWB EK-FC Plexi RGB $1,005</option>
+              <option value="12450" data-price="1550" data-cooling="watercooled" data-manufacturer="NVIDIA">[12450] NVIDIA GeForce RTX 2080Ti | Alphacool Eisblock GPX-N Acetal M02 $1,550</option>
+              <option value="12450" data-price="1550" data-cooling="watercooled" data-manufacturer="NVIDIA">[12450] NVIDIA GeForce RTX 2080Ti | Alphacool Eisblock GPX-N Plexi M02 $1,550</option>
+              <option value="10918" data-price="1550" data-cooling="watercooled" data-manufacturer="Zotac">[10918] ZOTAC ZOTAC GAMING GeForce RTX 2080 Ti ArticStorm $1,550</option>
+              <option value="18028" data-price="1900" data-cooling="watercooled" data-manufacturer="Zotac">[18028] ZOTAC GAMING GeForce RTX 3090 ArticStorm $1,900</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <div class="info-container d-flex justify-content-around align-items-center mt-3">
+          <p class="mb-0 fs-3">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M441-120v-86q-53-12-91.5-46T293-348l74-30q15 48 44.5 73t77.5 25q41 0 69.5-18.5T587-356q0-35-22-55.5T463-458q-86-27-118-64.5T313-614q0-65 42-101t86-41v-84h80v84q50 8 82.5 36.5T651-650l-74 32q-12-32-34-48t-60-16q-44 0-67 19.5T393-614q0 33 30 52t104 40q69 20 104.5 63.5T667-358q0 71-42 108t-104 46v84h-80Z" /></svg><span id="gpuPrice"></span>
+          </p>
+          <p class="mb-0 text-accent">score: <span id="gpuScore"></span></p>
+        </div>
+      </div>
+
+      <!-- cpu wrapper -->
+      <div class="CPU wrapper">
+        <div class="filter-container d-flex align-items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M400-240v-80h160v80H400ZM240-440v-80h480v80H240ZM120-640v-80h720v80H120Z" /></svg>
+          <div id="socketFilter" class="button-container">
+            <button value="" class="filter-button">All</button>
+            <button value="AM4" class="filter-button">AM4</button>
+            <button value="TR4" class="filter-button">TR4</button>
+            <button value="sTRX4" class="filter-button">sTRX4</button>
+            <button value="LGA 1151 (SkyLake)" class="filter-button">LGA 1151 (SkyLake)</button>
+            <button value="LGA 1151 (KabyLake)" class="filter-button">LGA 1151 (KabyLake)</button>
+            <button value="LGA 1200" class="filter-button">LGA 1200</button>
+            <button value="LGA 2066" class="filter-button">LGA 2066</button>
+          </div>
+        </div>
+
+        <div class="part-select-container d-flex align-items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M360-360v-240h240v240H360Zm80-80h80v-80h-80v80Zm-80 320v-80h-80q-33 0-56.5-23.5T200-280v-80h-80v-80h80v-80h-80v-80h80v-80q0-33 23.5-56.5T280-760h80v-80h80v80h80v-80h80v80h80q33 0 56.5 23.5T760-680v80h80v80h-80v80h80v80h-80v80q0 33-23.5 56.5T680-200h-80v80h-80v-80h-80v80h-80Zm320-160v-400H280v400h400ZM480-480Z" /></svg>
+          <select id="cpuSelect">
+            <option value="0">select CPU...</option>
+            <option value="2945" data-socket="AM4" data-price="140">[2945] AMD Ryzen 3 Quad Core 1200 | $140</option>
+            <option value="3153" data-socket="AM4" data-price="150">[3153] AMD Ryzen 3 Quad Core 1300X | $150</option>
+            <option value="4831" data-socket="AM4" data-price="280">[4831] AMD Ryzen 3 Quad Core 3100 | $280</option>
+            <option value="4928" data-socket="AM4" data-price="290">[4928] AMD Ryzen 3 Quad Core 3300X | $290</option>
+            <option value="3716" data-socket="AM4" data-price="170">[3716] AMD Ryzen 5 Quad Core 1400 | $170</option>
+            <option value="3933" data-socket="AM4" data-price="190">[3933] AMD Ryzen 5 Quad Core 1500X | $190</option>
+            <option value="4990" data-socket="AM4" data-price="260">[4990] AMD Ryzen 5 Six Core 1600 | $260</option>
+            <option value="5914" data-socket="AM4" data-price="270">[5914] AMD Ryzen 5 Six Core 1600X | $270</option>
+            <option value="5458" data-socket="AM4" data-price="390">[5458] AMD Ryzen 5 Six Core 2600 | $390</option>
+            <option value="6284" data-socket="AM4" data-price="300">[6284] AMD Ryzen 5 Six Core 2600X | $300</option>
+            <option value="6191" data-socket="AM4" data-price="200">[6191] AMD Ryzen 5 Six Core 3600 | $200</option>
+            <option value="7017" data-socket="AM4" data-price="250">[7017] AMD Ryzen 5 Six Core 3600X | $250</option>
+            <option value="7330" data-socket="AM4" data-price="400">[7330] AMD Ryzen 5 Six Core 3600XT | $400</option>
+            <option value="8044" data-socket="AM4" data-price="500">[8044] AMD Ryzen 5 Six Core 5600X | $500</option>
+            <option value="6472" data-socket="AM4" data-price="350">[6472] AMD Ryzen 7 Eight Core 1700 | $350</option>
+            <option value="7905" data-socket="AM4" data-price="360">[7905] AMD Ryzen 7 Eight Core 1700X | $360</option>
+            <option value="6842" data-socket="AM4" data-price="370">[6842] AMD Ryzen 7 Eight Core 1800X | $370</option>
+            <option value="8440" data-socket="AM4" data-price="380">[8440] AMD Ryzen 7 Eight Core 2700 | $380</option>
+            <option value="7381" data-socket="AM4" data-price="390">[7381] AMD Ryzen 7 Eight Core 2700X | $390</option>
+            <option value="9495" data-socket="AM4" data-price="330">[9495] AMD Ryzen 7 Eight Core 3700X | $330</option>
+            <option value="9622" data-socket="AM4" data-price="400">[9622] AMD Ryzen 7 Eight Core 3800X | $400</option>
+            <option value="10216" data-socket="AM4" data-price="650">[10216] AMD Ryzen 7 Eight Core 3800XT | $650</option>
+            <option value="11193" data-socket="AM4" data-price="750">[11193] AMD Ryzen 7 Eight Core 5800X | $750</option>
+            <option value="8920" data-socket="AM4" data-price="700">[8920] AMD Ryzen 9 Twelve Core 3900X | $700</option>
+            <option value="11900" data-socket="AM4" data-price="1000">[11900] AMD Ryzen 9 Twelve Core 3900XT | $1,000</option>
+            <option value="13057" data-socket="AM4" data-price="1000">[13057] AMD Ryzen 9 Twelve Core 5900X | $1,000</option>
+            <option value="9539" data-socket="AM4" data-price="900">[9539] AMD Ryzen 9 Sixteen Core 3950X | $900</option>
+            <option value="13900" data-socket="AM4" data-price="1100">[13900] AMD Ryzen 9 Sixteen Core 5950X | $1,100</option>
+            <option value="6076" data-socket="TR4" data-price="550">[6076] AMD Ryzen Threadripper Eight Core 1900X | $550</option>
+            <option value="5206" data-socket="TR4" data-price="650">[5206] AMD Ryzen Threadripper Twelve Core 1920X | $650</option>
+            <option value="5303" data-socket="TR4" data-price="800">[5303] AMD Ryzen Threadripper Sixteen Core 1950X | $800</option>
+            <option value="7735" data-socket="TR4" data-price="775">[7735] AMD Ryzen Threadripper 2920X | $775</option>
+            <option value="7739" data-socket="TR4" data-price="850">[7739] AMD Ryzen Threadripper 2950X | $850</option>
+            <option value="6408" data-socket="TR4" data-price="1000">[6408] AMD Ryzen Threadripper 2970WX | $1,000</option>
+            <option value="11104" data-socket="TR4" data-price="1100">[11104] AMD Ryzen Threadripper 2990WX | $1,100</option>
+            <option value="12017" data-socket="sTRX4" data-price="1400">[12017] AMD Ryzen Threadripper 3960X | $1,400</option>
+            <option value="11099" data-socket="sTRX4" data-price="2000">[11099] AMD Ryzen Threadripper 3970X | $2,000</option>
+            <option value="10713" data-socket="sTRX4" data-price="3990">[10713] AMD Ryzen Threadripper 3990X | $3,990</option>
+            <option value="784" data-socket="LGA 1151 (SkyLake)" data-price="45">[784] Intel Celeron G3900 | $45</option>
+            <option value="1392" data-socket="LGA 1151 (KabyLake)" data-price="40">[1392] Intel Celeron G3930 | $40</option>
+            <option value="1408" data-socket="LGA 1151 (KabyLake)" data-price="60">[1408] Intel Celeron G3950 | $60</option>
+            <option value="1162" data-socket="LGA 1200" data-price="50">[1162] Intel Celeron G5900 | $50</option>
+            <option value="1169" data-socket="LGA 1200" data-price="55">[1169] Intel Celeron G5920 | $55</option>
+            <option value="1558" data-socket="LGA 1151 (SkyLake)" data-price="65">[1558] Intel Pentium G4400 | $65</option>
+            <option value="1656" data-socket="LGA 1151 (SkyLake)" data-price="75">[1656] Intel Pentium G4500 | $75</option>
+            <option value="1705" data-socket="LGA 1151 (SkyLake)" data-price="95">[1705] Intel Pentium G4520 | $95</option>
+            <option value="2146" data-socket="LGA 1151 (KabyLake)" data-price="90">[2146] Intel Pentium G4560 | $90</option>
+            <option value="2222" data-socket="LGA 1151 (KabyLake)" data-price="90">[2222] Intel Pentium G4600 | $90</option>
+            <option value="2297" data-socket="LGA 1151 (KabyLake)" data-price="100">[2297] Intel Pentium G4620 | $100</option>
+            <option value="2567" data-socket="LGA 1200" data-price="120">[2567] Intel Pentium G6400 | $120</option>
+            <option value="2616" data-socket="LGA 1200" data-price="130">[2616] Intel Pentium G6500 | $130</option>
+            <option value="2665" data-socket="LGA 1200" data-price="140">[2665] Intel Pentium G6600 | $140</option>
+            <option value="2241" data-socket="LGA 1151 (SkyLake)" data-price="120">[2241] Intel Core i3-6100 | $120</option>
+            <option value="2101" data-socket="LGA 1151 (SkyLake)" data-price="125">[2101] Intel Core i3-6100T | $125</option>
+            <option value="2269" data-socket="LGA 1151 (SkyLake)" data-price="160">[2269] Intel Core i3-6300 | $160</option>
+            <option value="2297" data-socket="LGA 1151 (SkyLake)" data-price="170">[2297] Intel Core i3-6320 | $170</option>
+            <option value="2295" data-socket="LGA 1151 (KabyLake)" data-price="120">[2295] Intel Core i3-7100 | $120</option>
+            <option value="2349" data-socket="LGA 1151 (KabyLake)" data-price="125">[2349] Intel Core i3-7300 | $125</option>
+            <option value="2403" data-socket="LGA 1151 (KabyLake)" data-price="130">[2403] Intel Core i3-7320 | $130</option>
+            <option value="2457" data-socket="LGA 1151 (KabyLake)" data-price="135">[2457] Intel Core i3-7350K | $135</option>
+            <option value="3390" data-socket="LGA 1151 (CoffeeLake)" data-price="140">[3390] Intel Core i3-8100 | $140</option>
+            <option value="3694" data-socket="LGA 1151 (CoffeeLake)" data-price="190">[3694] Intel Core i3-8350K | $190</option>
+            <option value="5031" data-socket="LGA 1200" data-price="250">[5031] Intel Core i3-10100 | $250</option>
+            <option value="5134" data-socket="LGA 1200" data-price="280">[5134] Intel Core i3-10300 | $280</option>
+            <option value="5341" data-socket="LGA 1200" data-price="310">[5341] Intel Core i3-10320 | $310</option>
+            <option value="2930" data-socket="LGA 1151 (SkyLake)" data-price="200">[2930] Intel Core i5-6400 | $200</option>
+            <option value="3151" data-socket="LGA 1151 (SkyLake)" data-price="230">[3151] Intel Core i5-6500 | $230</option>
+            <option value="3371" data-socket="LGA 1151 (SkyLake)" data-price="240">[3371] Intel Core i5-6600 | $240</option>
+            <option value="3371" data-socket="LGA 1151 (SkyLake)" data-price="265">[3371] Intel Core i5-6600K | $265</option>
+            <option value="3135" data-socket="LGA 1151 (KabyLake)" data-price="170">[3135] Intel Core i5-7400 | $170</option>
+            <option value="3304" data-socket="LGA 1151 (KabyLake)" data-price="180">[3304] Intel Core i5-7500 | $180</option>
+            <option value="3472" data-socket="LGA 1151 (KabyLake)" data-price="190">[3472] Intel Core i5-7600 | $190</option>
+            <option value="3528" data-socket="LGA 1151 (KabyLake)" data-price="200">[3528] Intel Core i5-7600K | $200</option>
+            <option value="3689" data-socket="LGA 2066" data-price="195">[3689] Intel Core i5-7640X | $195</option>
+            <option value="5449" data-socket="LGA 1151 (CoffeeLake)" data-price="200">[5449] Intel Core i5-8400 | $200</option>
+            <option value="5755" data-socket="LGA 1151 (CoffeeLake)" data-price="300">[5755] Intel Core i5-8600K | $300</option>
+            <option value="5084" data-socket="LGA 1151 (CoffeeLake)" data-price="300">[5084] Intel Core i5-9600K | $300</option>
+            <option value="7353" data-socket="LGA 1200" data-price="350">[7353] Intel Core i5-10400 | $350</option>
+            <option value="7569" data-socket="LGA 1200" data-price="390">[7569] Intel Core i5-10500 | $390</option>
+            <option value="7962" data-socket="LGA 1200" data-price="430">[7962] Intel Core i5-10600 | $430</option>
+            <option value="7962" data-socket="LGA 1200" data-price="440">[7962] Intel Core i5-10600K | $440</option>
+            <option value="8021" data-socket="LGA 1200" data-price="500">[8021] Intel Core i5-11400 | $500</option>
+            <option value="8021" data-socket="LGA 1200" data-price="500">[8021] Intel Core i5-11400F | $500</option>
+            <option value="8628" data-socket="LGA 1200" data-price="600">[8628] Intel Core i5-11600 | $600</option>
+            <option value="8780" data-socket="LGA 1200" data-price="700">[8780] Intel Core i5-11600K | $700</option>
+            <option value="8780" data-socket="LGA 1200" data-price="700">[8780] Intel Core i5-11600KF | $700</option>
+            <option value="4185" data-socket="LGA 1151 (SkyLake)" data-price="240">[4185] Intel Core i7-6700 | $240</option>
+            <option value="4425" data-socket="LGA 1151 (SkyLake)" data-price="250">[4425] Intel Core i7-6700K | $250</option>
+            <option value="4586" data-socket="LGA 1151 (KabyLake)" data-price="260">[4586] Intel Core i7-7700 | $260</option>
+            <option value="4886" data-socket="LGA 1151 (KabyLake)" data-price="270">[4886] Intel Core i7-7700K | $270</option>
+            <option value="4717" data-socket="LGA 2066" data-price="265">[4717] Intel Core i7-7740X | $265</option>
+            <option value="6125" data-socket="LGA 2066" data-price="320">[6125] Intel Core i7-7800X | $320</option>
+            <option value="8013" data-socket="LGA 2066" data-price="700">[8013] Intel Core i7-7820X | $700</option>
+            <option value="6483" data-socket="LGA 1151 (CoffeeLake)" data-price="360">[6483] Intel Core i7-8700 | $360</option>
+            <option value="6644" data-socket="LGA 1151 (CoffeeLake)" data-price="400">[6644] Intel Core i7-8700K | $400</option>
+            <option value="8512" data-socket="LGA 1151 (CoffeeLake)" data-price="450">[8512] Intel Core i7-8086K | $450</option>
+            <option value="8040" data-socket="LGA 1151 (CoffeeLake)" data-price="420">[8040] Intel Core i7-9700K | $420</option>
+            <option value="8152" data-socket="LGA 2066" data-price="500">[8152] Intel Core i7-9800X | $500</option>
+            <option value="10769" data-socket="LGA 1200" data-price="600">[10769] Intel Core i7-10700 | $600</option>
+            <option value="11258" data-socket="LGA 1200" data-price="630">[11258] Intel Core i7-10700K | $630</option>
+            <option value="11035" data-socket="LGA 1200" data-price="950">[11035] Intel Core i7-11700 | $950</option>
+            <option value="11229" data-socket="LGA 1200" data-price="1,000">[11229] Intel Core i7-11700K | $1,000</option>
+            <option value="11229" data-socket="LGA 1200" data-price="1,000">[11229] Intel Core i7-11700KF | $1,000</option>
+            <option value="8301" data-socket="LGA 2066" data-price="900">[8301] Intel Core i9-7900X | $900</option>
+            <option value="7259" data-socket="LGA 2066" data-price="920">[7259] Intel Core i9-7920X | $920</option>
+            <option value="7529" data-socket="LGA 2066" data-price="940">[7529] Intel Core i9-7940X | $940</option>
+            <option value="7575" data-socket="LGA 2066" data-price="1,000">[7575] Intel Core i9-7960X | $1,000</option>
+            <option value="7376" data-socket="LGA 2066" data-price="1,200">[7376] Intel Core i9-7980XE | $1,200</option>
+            <option value="8949" data-socket="LGA 2066" data-price="580">[8949] Intel Core i9-9820X | $580</option>
+            <option value="10633" data-socket="LGA 1151 (CoffeeLake)" data-price="730">[10633] Intel Core i9-9900K | $730</option>
+            <option value="10633" data-socket="LGA 1151 (CoffeeLake)" data-price="800">[10633] Intel Core i9-9900KS | $800</option>
+            <option value="8216" data-socket="LGA 2066" data-price="660">[8216] Intel Core i9-9900X | $660</option>
+            <option value="7412" data-socket="LGA 2066" data-price="950">[7412] Intel Core i9-9920X | $950</option>
+            <option value="7787" data-socket="LGA 2066" data-price="1,050">[7787] Intel Core i9-9940X | $1,050</option>
+            <option value="7912" data-socket="LGA 2066" data-price="1,150">[7912] Intel Core i9-9960X | $1,150</option>
+            <option value="7747" data-socket="LGA 2066" data-price="1,300">[7747] Intel Core i9-9980XE | $1,300</option>
+            <option value="13209" data-socket="LGA 1200" data-price="950">[13209] Intel Core i9-10900 | $950</option>
+            <option value="13378" data-socket="LGA 1200" data-price="1,000">[13378] Intel Core i9-10900K | $1,000</option>
+            <option value="10338" data-socket="LGA 2066" data-price="1,000">[10338] Intel Core i9-10900X | $1,000</option>
+            <option value="10706" data-socket="LGA 2066" data-price="1,200">[10706] Intel Core i9-10920X | $1,200</option>
+            <option value="10962" data-socket="LGA 2066" data-price="1,600">[10962] Intel Core i9-10940X | $1,600</option>
+            <option value="12058" data-socket="LGA 2066" data-price="1,200">[12058] Intel Core i9-10980XE Extreme Edition | $1,200</option>
+            <option value="12063" data-socket="LGA 1200" data-price="1,150">[12063] Intel Core i9-11900 | $1,150</option>
+            <option value="12199" data-socket="LGA 1200" data-price="1,200">[12199] Intel Core i9-11900K | $1,200</option>
+            <option value="12199" data-socket="LGA 1200" data-price="1,200">[12199] Intel Core i9-11900KF | $1,200</option>
+          </select>
+        </div>
+
+        <div class="info-container d-flex justify-content-around align-items-center mt-3">
+          <p class="mb-0 fs-3">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M441-120v-86q-53-12-91.5-46T293-348l74-30q15 48 44.5 73t77.5 25q41 0 69.5-18.5T587-356q0-35-22-55.5T463-458q-86-27-118-64.5T313-614q0-65 42-101t86-41v-84h80v84q50 8 82.5 36.5T651-650l-74 32q-12-32-34-48t-60-16q-44 0-67 19.5T393-614q0 33 30 52t104 40q69 20 104.5 63.5T667-358q0 71-42 108t-104 46v84h-80Z" /></svg><span id="cpuPrice"></span>
+          </p>
+          <p class="mb-0 text-accent">score: <span id="cpuScore"></span></p>
+        </div>
+      </div>
+
+      <div class="score wrapper py-3">3DMark score: <span id="result"></span></div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
