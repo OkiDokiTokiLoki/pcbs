@@ -108,24 +108,3 @@ select {
     font-size: 7rem;
     line-height: 7rem;
 }
-.no-results {
-    color: var(--descend);
-    text-align: center;
-    margin-top: 0.5rem;
-    font-size: 0.9rem;
-}
-.sort-toggle {
-    position: relative;
-}
-.sort-toggle svg {
-    transition:
-        transform 0.25s ease,
-        fill 0.25s ease;
-}
-.sort-toggle[data-direction="desc"] svg {
-    transform: rotate(180deg);
-    fill: var(--descend);
-}
-.sort-toggle[data-direction="asc"] svg {
-    fill: var(--ascend);
-}
