@@ -35,6 +35,18 @@
 .justify-content-between {
     justify-content: space-between;
 }
+.mb-2 {
+    margin-bottom: 0.5rem;
+}
+.mt-3 {
+    margin-top: 1rem;
+}
+.fs-lg {
+    font-size: 1.5rem;
+}
+.text-accent {
+    color: var(--accent);
+}
 body {
     background-color: var(--background);
     font-family: Poppins, sans-serif;
@@ -128,4 +140,16 @@ select {
 }
 .sort-toggle[data-direction="asc"] svg {
     fill: var(--ascend);
+}
+.app-wrapper {
+    min-height: 100vh;
+    background-color: transparent;
+    max-width: 425px;
+}
+.filter-container {
+    gap: 0.7rem;
+}
+.result-wrapper {
+    padding-block: 1rem;
+    height: 169px;
 }
