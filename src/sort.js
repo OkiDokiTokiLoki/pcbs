@@ -1,4 +1,4 @@
-// Owns sort state. Preserves <optgroup> structure when sorting.
+const DRAG_THRESHOLD_PX = 5;
 
 const sortOptionsInGroup = (group, ascending, priceSort) => {
     const options = Array.from(group.children);
@@ -9,21 +9,17 @@ const sortOptionsInGroup = (group, ascending, priceSort) => {
         return ascending ? valueA - valueB : valueB - valueA;
     });
 
-    // Re-append sorted options (detaching + re-appending moves them in the DOM)
     options.forEach((option) => group.appendChild(option));
 };
 
 const sortOptions = (selectElement, ascending, priceSort) => {
     const previousValue = selectElement.value;
 
-    // Walk the DOM tree instead of selectElement.options (which flattens optgroups)
     const placeholder = selectElement.querySelector('option[value="0"]');
     const optgroups = Array.from(selectElement.querySelectorAll("optgroup"));
 
-    // Sort options inside each optgroup
     optgroups.forEach((group) => sortOptionsInGroup(group, ascending, priceSort));
 
-    // If the select has no optgroups, sort the direct <option> children (CPU case)
     if (optgroups.length === 0) {
         const directOptions = Array.from(selectElement.children).filter((child) => child.tagName === "OPTION" && child.value !== "0");
         directOptions.sort((a, b) => {
@@ -34,36 +30,33 @@ const sortOptions = (selectElement, ascending, priceSort) => {
         directOptions.forEach((option) => selectElement.appendChild(option));
     }
 
-    // Restore the selection
     if (previousValue !== "0") {
         const toSelect = Array.from(selectElement.options).find((o) => o.value === previousValue);
         if (toSelect) toSelect.selected = true;
     } else {
-        // Placeholder is always the first <option> child of <select>
         placeholder.selected = true;
     }
 
-    // Fire change so price/score/result display refresh
     selectElement.dispatchEvent(new Event("change"));
 };
 
-export const initSort = ({ gpuSelect, cpuSelect, onSort }) => {
+export const initSort = ({ gpuSelect, cpuSelect, scoreSortButton, priceSortButton, onSort }) => {
     let scoreAscending = true;
     let priceAscending = true;
 
-    document.getElementById("toggleSortScoreButton").addEventListener("click", () => {
+    scoreSortButton.addEventListener("click", () => {
         sortOptions(gpuSelect, scoreAscending, false);
         sortOptions(cpuSelect, scoreAscending, false);
         scoreAscending = !scoreAscending;
-        document.getElementById("toggleSortScoreButton").setAttribute("data-direction", scoreAscending ? "asc" : "desc");
+        scoreSortButton.setAttribute("data-direction", scoreAscending ? "asc" : "desc");
         onSort?.();
     });
 
-    document.getElementById("toggleSortPriceButton").addEventListener("click", () => {
+    priceSortButton.addEventListener("click", () => {
         sortOptions(gpuSelect, priceAscending, true);
         sortOptions(cpuSelect, priceAscending, true);
         priceAscending = !priceAscending;
-        document.getElementById("toggleSortPriceButton").setAttribute("data-direction", priceAscending ? "asc" : "desc");
+        priceSortButton.setAttribute("data-direction", priceAscending ? "asc" : "desc");
         onSort?.();
     });
 };

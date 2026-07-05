@@ -15,6 +15,12 @@ const gpuPriceEl = document.getElementById("gpuPrice");
 const cpuPriceEl = document.getElementById("cpuPrice");
 const gpuScoreEl = document.getElementById("gpuScore");
 const cpuScoreEl = document.getElementById("cpuScore");
+const gpuNoResultsEl = document.getElementById("gpuNoResults");
+const cpuNoResultsEl = document.getElementById("cpuNoResults");
+const gpuManufacturerButtons = document.querySelectorAll("#gpuManufacturerFilter .filter-button");
+const socketButtons = document.querySelectorAll("#socketFilter .filter-button");
+const scoreSortButton = document.getElementById("toggleSortScoreButton");
+const priceSortButton = document.getElementById("toggleSortPriceButton");
 const resultDiv = document.getElementById("result");
 const resultWrapper = document.getElementById("resultWrapper");
 
@@ -55,10 +61,18 @@ const resetIfHidden = (selectElement, priceElement, scoreElement) => {
 initSort({
     gpuSelect,
     cpuSelect,
+    scoreSortButton,
+    priceSortButton,
     onSort: calculateResult,
 });
 
-const filters = initFilters({
+initFilters({
+    gpuSelect,
+    cpuSelect,
+    gpuManufacturerButtons,
+    socketButtons,
+    gpuNoResultsEl,
+    cpuNoResultsEl,
     onChange: () => {
         resetIfHidden(gpuSelect, gpuPriceEl, gpuScoreEl);
         resetIfHidden(cpuSelect, cpuPriceEl, cpuScoreEl);

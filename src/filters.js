@@ -1,20 +1,12 @@
-const gpuSelect = () => document.getElementById("gpuSelect");
-const cpuSelect = () => document.getElementById("cpuSelect");
-const gpuNoResults = () => document.getElementById("gpuNoResults");
-const cpuNoResults = () => document.getElementById("cpuNoResults");
-
-export const initFilters = ({ onChange }) => {
+export const initFilters = ({ gpuSelect, cpuSelect, gpuManufacturerButtons, socketButtons, gpuNoResultsEl, cpuNoResultsEl, onChange }) => {
     const selectedManufacturers = new Set();
     let activeSocketValue = "";
 
-    const gpuButtons = document.querySelectorAll("#gpuManufacturerFilter .filter-button");
-    const allManufacturersButton = gpuButtons[0];
-
-    const socketButtons = document.querySelectorAll("#socketFilter .filter-button");
+    const allManufacturersButton = gpuManufacturerButtons[0];
     const allSocketsButton = socketButtons[0];
 
     const syncManufacturerButtons = () => {
-        gpuButtons.forEach((btn) => {
+        gpuManufacturerButtons.forEach((btn) => {
             if (btn === allManufacturersButton) {
                 btn.classList.toggle("active", selectedManufacturers.size === 0);
             } else {
@@ -35,7 +27,7 @@ export const initFilters = ({ onChange }) => {
         const manufacturers = Array.from(selectedManufacturers);
 
         let gpuVisible = 0;
-        Array.from(gpuSelect().options).forEach((option) => {
+        Array.from(gpuSelect.options).forEach((option) => {
             if (option.value === "0") return;
             const visible = manufacturers.length === 0 || manufacturers.includes(option.dataset.manufacturer);
             option.style.display = visible ? "" : "none";
@@ -43,20 +35,20 @@ export const initFilters = ({ onChange }) => {
         });
 
         let cpuVisible = 0;
-        Array.from(cpuSelect().options).forEach((option) => {
+        Array.from(cpuSelect.options).forEach((option) => {
             if (option.value === "0") return;
             const visible = !activeSocketValue || option.dataset.socket === activeSocketValue;
             option.style.display = visible ? "" : "none";
             if (visible) cpuVisible++;
         });
 
-        gpuNoResults().hidden = gpuVisible > 0;
-        cpuNoResults().hidden = cpuVisible > 0;
+        gpuNoResultsEl.hidden = gpuVisible > 0;
+        cpuNoResultsEl.hidden = cpuVisible > 0;
 
         onChange?.({ gpuVisible, cpuVisible });
     };
 
-    gpuButtons.forEach((button) => {
+    gpuManufacturerButtons.forEach((button) => {
         button.addEventListener("click", () => {
             const manufacturerValue = button.value;
             if (manufacturerValue) {
