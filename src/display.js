@@ -1,19 +1,18 @@
+import { formatPrice } from "./format.js";
+
 const PLACEHOLDER = "—";
 
-export const updateSelection = (selectElement, priceId, scoreId) => {
+export const updateSelection = (selectElement, priceElement, scoreElement) => {
     const selectedOption = selectElement.options[selectElement.selectedIndex];
     const price = selectedOption.getAttribute("data-price");
     const score = selectedOption.value;
 
-    const priceEl = document.getElementById(priceId);
-    const scoreEl = document.getElementById(scoreId);
-
     if (price === null || score === "0") {
-        priceEl.textContent = PLACEHOLDER;
-        scoreEl.textContent = PLACEHOLDER;
+        priceElement.textContent = PLACEHOLDER;
+        scoreElement.textContent = PLACEHOLDER;
         return;
     }
 
-    priceEl.textContent = price;
-    scoreEl.textContent = score;
+    priceElement.textContent = formatPrice(price);
+    scoreElement.textContent = score;
 };

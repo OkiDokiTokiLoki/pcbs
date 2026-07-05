@@ -7,10 +7,14 @@ import { updateSelection } from "./display.js";
 import { calculateScore, formatResult } from "./calculator.js";
 
 // ========================================================================
-// DOM references
+// DOM references — queried once at startup
 // ========================================================================
 const gpuSelect = document.getElementById("gpuSelect");
 const cpuSelect = document.getElementById("cpuSelect");
+const gpuPriceEl = document.getElementById("gpuPrice");
+const cpuPriceEl = document.getElementById("cpuPrice");
+const gpuScoreEl = document.getElementById("gpuScore");
+const cpuScoreEl = document.getElementById("cpuScore");
 const resultDiv = document.getElementById("result");
 const resultWrapper = document.getElementById("resultWrapper");
 
@@ -37,10 +41,10 @@ const calculateResult = () => {
 // ========================================================================
 // When filter selection becomes hidden, reset it to placeholder
 // ========================================================================
-const resetIfHidden = (selectElement, priceId, scoreId) => {
+const resetIfHidden = (selectElement, priceElement, scoreElement) => {
     if (selectElement.value !== "0" && selectElement.options[selectElement.selectedIndex].style.display === "none") {
         selectElement.value = "0";
-        updateSelection(selectElement, priceId, scoreId);
+        updateSelection(selectElement, priceElement, scoreElement);
     }
 };
 
@@ -48,41 +52,38 @@ const resetIfHidden = (selectElement, priceId, scoreId) => {
 // Wire up modules
 // ========================================================================
 
-// Sort: refreshes the result after a sort
 initSort({
     gpuSelect,
     cpuSelect,
     onSort: calculateResult,
 });
 
-// Filters: triggers a recalculation when filters change
 const filters = initFilters({
     onChange: () => {
-        resetIfHidden(gpuSelect, "gpuPrice", "gpuScore");
-        resetIfHidden(cpuSelect, "cpuPrice", "cpuScore");
+        resetIfHidden(gpuSelect, gpuPriceEl, gpuScoreEl);
+        resetIfHidden(cpuSelect, cpuPriceEl, cpuScoreEl);
         calculateResult();
     },
 });
 
-// Drag-to-scroll on all filter button containers
 initAllDrag();
 
 // ========================================================================
 // Select change handlers
 // ========================================================================
 gpuSelect.addEventListener("change", () => {
-    updateSelection(gpuSelect, "gpuPrice", "gpuScore");
+    updateSelection(gpuSelect, gpuPriceEl, gpuScoreEl);
     calculateResult();
 });
 
 cpuSelect.addEventListener("change", () => {
-    updateSelection(cpuSelect, "cpuPrice", "cpuScore");
+    updateSelection(cpuSelect, cpuPriceEl, cpuScoreEl);
     calculateResult();
 });
 
 // ========================================================================
 // Initial state
 // ========================================================================
-updateSelection(gpuSelect, "gpuPrice", "gpuScore");
-updateSelection(cpuSelect, "cpuPrice", "cpuScore");
+updateSelection(gpuSelect, gpuPriceEl, gpuScoreEl);
+updateSelection(cpuSelect, cpuPriceEl, cpuScoreEl);
 calculateResult();

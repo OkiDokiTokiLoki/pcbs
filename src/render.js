@@ -1,6 +1,5 @@
 import { gpus, cpus } from "./parts.js";
-
-const formatPrice = (n) => "$" + n.toLocaleString("en-US");
+import { formatPrice } from "./format.js";
 
 // Build a single <option> element from a part
 const buildOption = (part, kind) => {
@@ -21,7 +20,6 @@ const buildOption = (part, kind) => {
 export const renderSelect = (selectEl, parts, kind) => {
     const previousValue = selectEl.value;
 
-    // Wipe everything including the placeholder, then rebuild
     selectEl.innerHTML = "";
 
     const placeholder = document.createElement("option");
@@ -29,7 +27,6 @@ export const renderSelect = (selectEl, parts, kind) => {
     placeholder.textContent = "select...";
     selectEl.add(placeholder);
 
-    // Group aircooled vs watercooled for GPUs (matches the old optgroup layout)
     if (kind === "gpu") {
         for (const cooling of ["aircooled", "watercooled"]) {
             const group = document.createElement("optgroup");
@@ -43,7 +40,6 @@ export const renderSelect = (selectEl, parts, kind) => {
         for (const part of parts) selectEl.add(buildOption(part, kind));
     }
 
-    // Restore the previous selection if it still exists
     if (previousValue && previousValue !== "0") {
         const match = Array.from(selectEl.options).find((o) => o.value === previousValue);
         if (match) match.selected = true;
