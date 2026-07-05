@@ -12,7 +12,8 @@ const buildOption = (part, kind) => {
     } else {
         option.dataset.socket = part.socket;
     }
-    option.textContent = `[${part.score}] ${part.name} | ${formatPrice(part.price)}`;
+    const displayName = part.name.startsWith(part.manufacturer) ? part.name : `${part.manufacturer} ${part.name}`;
+    option.textContent = `${displayName} | $${formatPrice(part.price)} | ${part.score.toLocaleString()}`;
     return option;
 };
 

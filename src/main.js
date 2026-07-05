@@ -1,5 +1,6 @@
 import "./style.css";
-import { init as initSelects } from "./render.js";
+import { gpus, cpus } from "./parts.js";
+import { init as initSelects, renderSelect } from "./render.js";
 import { initFilters } from "./filters.js";
 import { initSort } from "./sort.js";
 import { initAllDrag } from "./drag.js";
@@ -84,6 +85,11 @@ const filters = initFilters({
 
 resetButton.addEventListener("click", () => {
     filters.reset();
+    renderSelect(gpuSelect, gpus, "gpu");
+    renderSelect(cpuSelect, cpus, "cpu");
+    updateSelection(gpuSelect, gpuPriceEl, gpuScoreEl);
+    updateSelection(cpuSelect, cpuPriceEl, cpuScoreEl);
+    calculateResult();
 });
 
 initAllDrag();
