@@ -66,7 +66,9 @@ initSort({
     onSort: calculateResult,
 });
 
-initFilters({
+const resetButton = document.getElementById("resetFiltersButton");
+
+const filters = initFilters({
     gpuSelect,
     cpuSelect,
     gpuManufacturerButtons,
@@ -78,6 +80,10 @@ initFilters({
         resetIfHidden(cpuSelect, cpuPriceEl, cpuScoreEl);
         calculateResult();
     },
+});
+
+resetButton.addEventListener("click", () => {
+    filters.reset();
 });
 
 initAllDrag();

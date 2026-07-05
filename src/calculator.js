@@ -8,5 +8,5 @@ export const calculateScore = (gpuScore, cpuScore) => {
 
 export const formatResult = (score) => {
     if (!score) return "";
-    return Math.floor(score).toLocaleString();
+    return Math.round(score).toLocaleString();
 };

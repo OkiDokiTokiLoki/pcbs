@@ -1,24 +1,32 @@
+/* ==========================================================================
+   Reset & Normalize
+   ========================================================================== */
+
 *,
 *::before,
 *::after {
     box-sizing: border-box;
 }
+
 * {
     margin: 0;
     padding: 0;
 }
+
 html {
     -webkit-text-size-adjust: 100%;
     -moz-text-size-adjust: 100%;
     text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
 }
+
 body {
     min-height: 100vh;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
 img,
 picture,
 video,
@@ -27,6 +35,7 @@ svg {
     display: block;
     max-width: 100%;
 }
+
 input,
 button,
 textarea,
@@ -34,26 +43,36 @@ select {
     font: inherit;
     color: inherit;
 }
+
 button {
     background: none;
     border: none;
     cursor: pointer;
 }
+
 a {
     color: inherit;
     text-decoration: none;
 }
+
 ul,
 ol {
     list-style: none;
 }
+
 table {
     border-collapse: collapse;
     border-spacing: 0;
 }
+
 [hidden] {
     display: none !important;
 }
+
+/* ==========================================================================
+   Design tokens
+   ========================================================================== */
+
 :root {
     --text: #f8f8f8;
     --ascend: #008080;
@@ -64,6 +83,11 @@ table {
     --spacer: 0;
     --wrapper: #07283f;
 }
+
+/* ==========================================================================
+   Utility classes
+   ========================================================================== */
+
 .d-flex {
     display: flex;
 }
@@ -97,6 +121,16 @@ table {
 .text-accent {
     color: var(--accent);
 }
+
+/* ==========================================================================
+   Base layout
+   ========================================================================== */
+
+html,
+body {
+    height: 100%;
+}
+
 body {
     background-color: var(--background);
     font-family: Poppins, sans-serif;
@@ -105,15 +139,24 @@ body {
     align-items: center;
     justify-content: center;
     padding: 1rem;
+    overflow: hidden;
 }
+
 .wrapper {
     background-color: var(--wrapper);
     padding: 1rem;
+    margin-block: 0.5rem;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    min-height: 0;
 }
+
+/* ==========================================================================
+   Components
+   ========================================================================== */
+
 button {
     display: flex;
     align-items: center;
@@ -124,10 +167,7 @@ button {
     padding: 1rem;
     border-radius: 5px;
 }
-button:hover {
-    color: #ce21b1;
-    background-color: var(--primary);
-}
+
 .button-container {
     display: flex;
     overflow-x: hidden;
@@ -139,24 +179,33 @@ button:hover {
     user-select: none;
     -webkit-user-select: none;
 }
+
 .button-container:active {
     cursor: grabbing;
 }
+
 .filter-button {
     flex: 0 0 auto;
     margin-right: 10px;
 }
+
 .filter-button.active {
     background-color: var(--accent);
-    color: white;
+    color: var(--wrapper);
 }
+
 select {
     margin-left: 0.5rem;
     width: 100%;
-    background-color: #fff;
+    background-color: var(--background);
     border: 1px solid transparent;
     border-radius: 4px;
 }
+
+select * {
+    color: var(--ascend);
+}
+
 .score {
     color: var(--accent);
     margin-top: var(--spacer);
@@ -164,47 +213,75 @@ select {
     flex-direction: column;
     align-items: center;
 }
+
 #result {
-    font-size: 7rem;
-    line-height: 7rem;
+    font-size: clamp(3rem, 15vh, 7rem);
+    line-height: 1;
 }
+
 .no-results {
     color: var(--descend);
     text-align: center;
     margin-top: 0.5rem;
     font-size: 0.9rem;
 }
+
 .sort-toggle {
     position: relative;
 }
+
 .sort-toggle svg {
     transition:
         transform 0.25s ease,
         fill 0.25s ease;
 }
+
 .sort-toggle[data-direction="desc"] svg {
     transform: rotate(180deg);
     fill: var(--descend);
 }
+
 .sort-toggle[data-direction="asc"] svg {
     fill: var(--ascend);
 }
+
+/* ==========================================================================
+   Semantic component classes
+   ========================================================================== */
+
 .app-wrapper {
-    min-height: 100vh;
-    background-color: transparent;
+    width: 100%;
     max-width: 425px;
+    max-height: 100%;
+    min-height: 0;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
 }
+
 .filter-container {
     margin-bottom: 0.5rem;
     gap: 0.7rem;
+    flex: 0 0 auto;
 }
+
 .part-select-container {
     margin-bottom: 0.5rem;
+    flex: 0 0 auto;
 }
+
 .info-container {
     margin-top: 1rem;
+    flex: 0 0 auto;
 }
+
 .result-wrapper {
-    padding-block: 1rem;
-    height: 169px;
+    padding-block: 0.5rem;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }

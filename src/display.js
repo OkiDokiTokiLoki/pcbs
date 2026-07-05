@@ -14,5 +14,5 @@ export const updateSelection = (selectElement, priceElement, scoreElement) => {
     }
 
     priceElement.textContent = formatPrice(price);
-    scoreElement.textContent = score;
+    scoreElement.textContent = Number(score).toLocaleString();
 };

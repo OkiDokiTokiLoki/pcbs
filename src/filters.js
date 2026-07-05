@@ -81,9 +81,18 @@ export const initFilters = ({ gpuSelect, cpuSelect, gpuManufacturerButtons, sock
     syncManufacturerButtons();
     syncSocketButtons();
 
+    const reset = () => {
+        selectedManufacturers.clear();
+        activeSocketValue = "";
+        syncManufacturerButtons();
+        syncSocketButtons();
+        apply();
+    };
+
     return {
         getSelectedManufacturers: () => Array.from(selectedManufacturers),
         getActiveSocket: () => activeSocketValue,
         apply,
+        reset,
     };
 };
