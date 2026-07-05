@@ -6,6 +6,7 @@
     --accent: #47cf80;
     --spacer: 0;
     --wrapper: #07283f;
+    --primary: var(--accent);
 }
 *,
 *::before,
@@ -78,10 +79,6 @@ button {
     border-radius: 5px;
     cursor: pointer;
 }
-button:hover {
-    color: #ce21b1;
-    background-color: var(--primary);
-}
 .button-container {
     display: flex;
     overflow-x: hidden;
@@ -100,7 +97,7 @@ button:hover {
 }
 .filter-button.active {
     background-color: var(--accent);
-    color: white;
+    color: var(--background);
 }
 select {
     margin-left: 0.5rem;
