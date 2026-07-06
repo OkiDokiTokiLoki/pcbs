@@ -4,7 +4,7 @@ import { init as initSelects, renderSelect } from "./render.js";
 import { initFilters } from "./filters.js";
 import { initSort } from "./sort.js";
 import { initAllDrag } from "./drag.js";
-import { updateSelection } from "./display.js";
+import { updateSelection, PLACEHOLDER } from "./display.js";
 import { calculateScore, formatResult } from "./calculator.js";
 
 // ========================================================================
@@ -38,10 +38,8 @@ const calculateResult = () => {
     const value2 = Number(cpuSelect.value);
     if (value1 > 0 && value2 > 0) {
         resultDiv.textContent = formatResult(calculateScore(value1, value2));
-        resultWrapper.hidden = false;
     } else {
-        resultDiv.textContent = "";
-        resultWrapper.hidden = true;
+        resultDiv.textContent = PLACEHOLDER;
     }
 };
 

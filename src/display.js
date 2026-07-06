@@ -1,6 +1,6 @@
 import { formatPrice } from "./format.js";
 
-const PLACEHOLDER = "—";
+export const PLACEHOLDER = "—";
 
 export const updateSelection = (selectElement, priceElement, scoreElement) => {
     const selectedOption = selectElement.options[selectElement.selectedIndex];
