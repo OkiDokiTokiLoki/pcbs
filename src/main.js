@@ -57,7 +57,7 @@ const resetIfHidden = (selectElement, priceElement, scoreElement) => {
 // Wire up modules
 // ========================================================================
 
-initSort({
+const sort = initSort({
     gpuSelect,
     cpuSelect,
     scoreSortButton,
@@ -82,6 +82,7 @@ const filters = initFilters({
 });
 
 resetButton.addEventListener("click", () => {
+    sort.reset();
     filters.reset();
     renderSelect(gpuSelect, gpus, "gpu");
     renderSelect(cpuSelect, cpus, "cpu");

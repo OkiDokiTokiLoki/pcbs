@@ -23,8 +23,8 @@ const sortOptions = (selectElement, ascending, priceSort) => {
     if (optgroups.length === 0) {
         const directOptions = Array.from(selectElement.children).filter((child) => child.tagName === "OPTION" && child.value !== "0");
         directOptions.sort((a, b) => {
-            const valueA = priceSort ? Number(a.dataset.price) : Number(a.value);
-            const valueB = priceSort ? Number(b.dataset.price) : Number(b.value);
+            const valueA = priceSort ? Number(a.dataset.price) : Number(a.dataset.price);
+            const valueB = priceSort ? Number(b.dataset.price) : Number(b.dataset.price);
             return ascending ? valueA - valueB : valueB - valueA;
         });
         directOptions.forEach((option) => selectElement.appendChild(option));
@@ -40,23 +40,40 @@ const sortOptions = (selectElement, ascending, priceSort) => {
     selectElement.dispatchEvent(new Event("change"));
 };
 
+const applySort = (state, button, priceSort, gpuSelect, cpuSelect, onSort) => {
+    if (state.direction === null) {
+        state.direction = "asc";
+    } else if (state.direction === "asc") {
+        state.direction = "desc";
+    } else {
+        state.direction = "asc";
+    }
+
+    const ascending = state.direction === "asc";
+    sortOptions(gpuSelect, ascending, priceSort);
+    sortOptions(cpuSelect, ascending, priceSort);
+    button.setAttribute("data-direction", state.direction);
+    onSort?.();
+};
+
 export const initSort = ({ gpuSelect, cpuSelect, scoreSortButton, priceSortButton, onSort }) => {
-    let scoreAscending = true;
-    let priceAscending = true;
+    const scoreState = { direction: null };
+    const priceState = { direction: null };
 
     scoreSortButton.addEventListener("click", () => {
-        sortOptions(gpuSelect, scoreAscending, false);
-        sortOptions(cpuSelect, scoreAscending, false);
-        scoreAscending = !scoreAscending;
-        scoreSortButton.setAttribute("data-direction", scoreAscending ? "asc" : "desc");
-        onSort?.();
+        applySort(scoreState, scoreSortButton, false, gpuSelect, cpuSelect, onSort);
     });
 
     priceSortButton.addEventListener("click", () => {
-        sortOptions(gpuSelect, priceAscending, true);
-        sortOptions(cpuSelect, priceAscending, true);
-        priceAscending = !priceAscending;
-        priceSortButton.setAttribute("data-direction", priceAscending ? "asc" : "desc");
-        onSort?.();
+        applySort(priceState, priceSortButton, true, gpuSelect, cpuSelect, onSort);
     });
+
+    const reset = () => {
+        scoreState.direction = null;
+        priceState.direction = null;
+        scoreSortButton.removeAttribute("data-direction");
+        priceSortButton.removeAttribute("data-direction");
+    };
+
+    return { reset };
 };

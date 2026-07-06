@@ -152,10 +152,10 @@ select {
         transform 0.25s ease,
         fill 0.25s ease;
 }
-.sort-toggle[data-direction] svg {
+.sort-toggle[data-direction] svg.indicator {
     fill: var(--ascend);
 }
-.sort-toggle[data-direction="desc"] svg.rotate {
+.sort-toggle[data-direction="desc"] svg.indicator {
     transform: rotate(180deg);
     fill: var(--descend);
 }
