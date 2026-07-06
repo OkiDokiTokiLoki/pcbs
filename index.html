@@ -14,16 +14,22 @@
                     <div class="btn-container d-flex justify-content-between">
                         <button class="d-flex sort-toggle" id="toggleSortScoreButton" data-direction="asc">
                             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M418-340q24 24 62 23.5t56-27.5l224-336-336 224q-27 18-28.5 55t22.5 61Zm62-460q59 0 113.5 16.5T696-734l-76 48q-33-17-68.5-25.5T480-720q-133 0-226.5 93.5T160-400q0 42 11.5 83t32.5 77h552q23-38 33.5-79t10.5-85q0-36-8.5-70T766-540l48-76q30 47 47.5 100T880-406q1 57-13 109t-41 99q-11 18-30 28t-40 10H204q-21 0-40-10t-30-28q-26-45-40-95.5T80-400q0-83 31.5-155.5t86-127Q252-737 325-768.5T480-800Zm7 313Z" /></svg>
+                            <svg class="rotate" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#e8eaed">
+                                <polygon points="11,6.83 9.41,8.41 8,7 12,3 16,7 14.59,8.41 13,6.83 13,21 11,21" />
+                            </svg>
                         </button>
                         <button id="resetFiltersButton" class="filter-button mb-2">Reset filters</button>
                         <button class="d-flex sort-toggle" id="toggleSortPriceButton" data-direction="asc">
                             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M441-120v-86q-53-12-91.5-46T293-348l74-30q15 48 44.5 73t77.5 25q41 0 69.5-18.5T587-356q0-35-22-55.5T463-458q-86-27-118-64.5T313-614q0-65 42-101t86-41v-84h80v84q50 8 82.5 36.5T651-650l-74 32q-12-32-34-48t-60-16q-44 0-67 19.5T393-614q0 33 30 52t104 40q69 20 104.5 63.5T667-358q0 71-42 108t-104 46v84h-80Z" /></svg>
+                            <svg class="rotate" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#e8eaed">
+                                <polygon points="11,6.83 9.41,8.41 8,7 12,3 16,7 14.59,8.41 13,6.83 13,21 11,21" />
+                            </svg>
                         </button>
                     </div>
                 </div>
 
                 <!-- gpu -->
-                <div class="gpu-container container">
+                <div class="container">
                     <div class="filter-container mb-2 d-flex align-items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M400-240v-80h160v80H400ZM240-440v-80h480v80H240ZM120-640v-80h720v80H120Z" /></svg>
                         <div id="gpuManufacturerFilter" class="button-container">
@@ -60,7 +66,7 @@
                 </div>
 
                 <!-- cpu -->
-                <div class="cpu-container container">
+                <div class="container">
                     <div class="filter-container mb-2 d-flex align-items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M400-240v-80h160v80H400ZM240-440v-80h480v80H240ZM120-640v-80h720v80H120Z" /></svg>
                         <div id="socketFilter" class="button-container">
@@ -93,7 +99,7 @@
                 </div>
 
                 <!-- result -->
-                <div id="resultWrapper" class="container score wrapperz">3DMark score: <span id="result"></span></div>
+                <div id="resultWrapper" class="container score">3DMark score: <span id="result"></span></div>
             </div>
         </div>
         <script type="module" src="/src/main.js"></script>
