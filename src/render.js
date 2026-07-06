@@ -12,7 +12,7 @@ const buildOption = (part, kind) => {
     } else {
         option.dataset.socket = part.socket;
     }
-    const displayName = part.name.startsWith(part.manufacturer) ? part.name : `${part.manufacturer} ${part.name}`;
+    const displayName = kind === "gpu" && !part.name.startsWith(part.manufacturer) ? `${part.manufacturer} ${part.name}` : part.name;
     option.textContent = `${displayName} | $${formatPrice(part.price)} | ${part.score.toLocaleString()}`;
     return option;
 };
