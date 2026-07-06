@@ -24,10 +24,9 @@ input {
     --background: #031926;
     --wrapper: #07283f;
     --primary: #47cf80;
+    --accent: #ff0062;
     --text: #f8f8f8;
     --button: #0b3451;
-    --ascend: #008080;
-    --descend: #ff0062;
 }
 .d-flex {
     display: flex;
@@ -153,9 +152,8 @@ select {
         fill 0.25s ease;
 }
 .sort-toggle[data-direction] svg.indicator {
-    fill: var(--ascend);
+    fill: var(--accent);
 }
 .sort-toggle[data-direction="desc"] svg.indicator {
     transform: rotate(180deg);
-    fill: var(--descend);
 }
