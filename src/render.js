@@ -25,7 +25,7 @@ export const renderSelect = (selectEl, parts, kind) => {
 
     const placeholder = document.createElement("option");
     placeholder.value = "0";
-    placeholder.textContent = "select...";
+    placeholder.textContent = "Select...";
     selectEl.add(placeholder);
 
     if (kind === "gpu") {

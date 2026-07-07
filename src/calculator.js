@@ -1,5 +1,5 @@
-const GPU_WEIGHT = 0.85;
-const CPU_WEIGHT = 0.15;
+export const GPU_WEIGHT = 0.85;
+export const CPU_WEIGHT = 0.15;
 
 export const calculateScore = (gpuScore, cpuScore) => {
     if (!gpuScore || !cpuScore) return 0;

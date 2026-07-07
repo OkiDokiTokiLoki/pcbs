@@ -6,6 +6,7 @@ import { initSort } from "./sort.js";
 import { initAllDrag } from "./drag.js";
 import { updateSelection, PLACEHOLDER } from "./display.js";
 import { calculateScore, formatResult } from "./calculator.js";
+import { initTarget, requiredScoreFor } from "./target.js";
 
 // ========================================================================
 // DOM references — queried once at startup
@@ -24,6 +25,8 @@ const scoreSortButton = document.getElementById("toggleSortScoreButton");
 const priceSortButton = document.getElementById("toggleSortPriceButton");
 const resultDiv = document.getElementById("result");
 const resultWrapper = document.getElementById("resultWrapper");
+const targetInput = document.getElementById("targetInput");
+const resetButton = document.getElementById("resetFiltersButton");
 
 // ========================================================================
 // Render initial options into <select> elements
@@ -54,6 +57,20 @@ const resetIfHidden = (selectElement, priceElement, scoreElement) => {
 };
 
 // ========================================================================
+// Recompute the target-driven minimum scores and re-apply filters
+// ========================================================================
+const applyTarget = () => {
+    const T = target.getTarget();
+    const gpuVal = Number(gpuSelect.value);
+    const cpuVal = Number(cpuSelect.value);
+    filters.setRequiredScores({
+        gpu: requiredScoreFor(T, cpuVal, "gpu"),
+        cpu: requiredScoreFor(T, gpuVal, "cpu"),
+    });
+    filters.apply();
+};
+
+// ========================================================================
 // Wire up modules
 // ========================================================================
 
@@ -64,8 +81,6 @@ const sort = initSort({
     priceSortButton,
     onSort: calculateResult,
 });
-
-const resetButton = document.getElementById("resetFiltersButton");
 
 const filters = initFilters({
     gpuSelect,
@@ -81,9 +96,15 @@ const filters = initFilters({
     },
 });
 
+const target = initTarget({
+    input: targetInput,
+    onChange: applyTarget,
+});
+
 resetButton.addEventListener("click", () => {
     sort.reset();
     filters.reset();
+    target.reset();
     renderSelect(gpuSelect, gpus, "gpu");
     renderSelect(cpuSelect, cpus, "cpu");
     updateSelection(gpuSelect, gpuPriceEl, gpuScoreEl);
@@ -98,11 +119,13 @@ initAllDrag();
 // ========================================================================
 gpuSelect.addEventListener("change", () => {
     updateSelection(gpuSelect, gpuPriceEl, gpuScoreEl);
+    applyTarget();
     calculateResult();
 });
 
 cpuSelect.addEventListener("change", () => {
     updateSelection(cpuSelect, cpuPriceEl, cpuScoreEl);
+    applyTarget();
     calculateResult();
 });
 

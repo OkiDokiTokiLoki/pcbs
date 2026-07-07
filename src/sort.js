@@ -23,8 +23,8 @@ const sortOptions = (selectElement, ascending, priceSort) => {
     if (optgroups.length === 0) {
         const directOptions = Array.from(selectElement.children).filter((child) => child.tagName === "OPTION" && child.value !== "0");
         directOptions.sort((a, b) => {
-            const valueA = priceSort ? Number(a.dataset.price) : Number(a.dataset.price);
-            const valueB = priceSort ? Number(b.dataset.price) : Number(b.dataset.price);
+            const valueA = priceSort ? Number(a.dataset.price) : Number(a.value);
+            const valueB = priceSort ? Number(b.dataset.price) : Number(b.value);
             return ascending ? valueA - valueB : valueB - valueA;
         });
         directOptions.forEach((option) => selectElement.appendChild(option));
