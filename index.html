@@ -5,8 +5,8 @@
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>pcbs</title>
-      <script type="module" crossorigin src="/pcbs/assets/index-6yQ3lu49.js"></script>
-      <link rel="stylesheet" crossorigin href="/pcbs/assets/index-DgA-Mgxm.css">
+      <script type="module" crossorigin src="/pcbs/assets/index-DY8wPdco.js"></script>
+      <link rel="stylesheet" crossorigin href="/pcbs/assets/index-C-eReRlx.css">
     </head>
     <body>
         <div id="app" class="app-wrapper">
@@ -20,7 +20,12 @@
                                 <polygon points="11,6.83 9.41,8.41 8,7 12,3 16,7 14.59,8.41 13,6.83 13,21 11,21" />
                             </svg>
                         </button>
-                        <button id="resetFiltersButton" class="filter-button mb-2">Reset filters</button>
+                        <div class="d-flex flex-column align-items-center justify-content-center">
+                            <button id="resetFiltersButton" class="mb-2">Reset filters</button>
+                            <div style="width: 85%">
+                                <input type="number" id="targetInput" placeholder="Target score" />
+                            </div>
+                        </div>
                         <button class="d-flex sort-toggle" id="toggleSortPriceButton">
                             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M441-120v-86q-53-12-91.5-46T293-348l74-30q15 48 44.5 73t77.5 25q41 0 69.5-18.5T587-356q0-35-22-55.5T463-458q-86-27-118-64.5T313-614q0-65 42-101t86-41v-84h80v84q50 8 82.5 36.5T651-650l-74 32q-12-32-34-48t-60-16q-44 0-67 19.5T393-614q0 33 30 52t104 40q69 20 104.5 63.5T667-358q0 71-42 108t-104 46v84h-80Z" /></svg>
                             <svg class="indicator" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#fff">
@@ -62,7 +67,7 @@
                         <p class="d-flex align-items-center fs-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M441-120v-86q-53-12-91.5-46T293-348l74-30q15 48 44.5 73t77.5 25q41 0 69.5-18.5T587-356q0-35-22-55.5T463-458q-86-27-118-64.5T313-614q0-65 42-101t86-41v-84h80v84q50 8 82.5 36.5T651-650l-74 32q-12-32-34-48t-60-16q-44 0-67 19.5T393-614q0 33 30 52t104 40q69 20 104.5 63.5T667-358q0 71-42 108t-104 46v84h-80Z" /></svg><span id="gpuPrice"></span>
                         </p>
-                        <p class="text-accent">score: <span id="gpuScore"></span></p>
+                        <p class="text-accent">Score: <span id="gpuScore"></span></p>
                     </div>
                     <p id="gpuNoResults" class="no-results" hidden>No GPUs match the current filters.</p>
                 </div>
@@ -95,7 +100,7 @@
                         <p class="d-flex align-items-center fs-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M441-120v-86q-53-12-91.5-46T293-348l74-30q15 48 44.5 73t77.5 25q41 0 69.5-18.5T587-356q0-35-22-55.5T463-458q-86-27-118-64.5T313-614q0-65 42-101t86-41v-84h80v84q50 8 82.5 36.5T651-650l-74 32q-12-32-34-48t-60-16q-44 0-67 19.5T393-614q0 33 30 52t104 40q69 20 104.5 63.5T667-358q0 71-42 108t-104 46v84h-80Z" /></svg><span id="cpuPrice"></span>
                         </p>
-                        <p class="text-accent">score: <span id="cpuScore"></span></p>
+                        <p class="text-accent">Score: <span id="cpuScore"></span></p>
                     </div>
                     <p id="cpuNoResults" class="no-results" hidden>No CPUs match the current filters.</p>
                 </div>
